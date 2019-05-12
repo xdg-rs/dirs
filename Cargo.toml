@@ -1,0 +1,22 @@
+[package]
+name        = "dirs-sys"
+version     = "0.1.0"
+authors     = ["Simon Ochsenreither <simon@ochsenreither.de>"]
+description = "System-level helper functions for the dirs and directories crates."
+readme      = "README.md"
+license     = "MIT OR Apache-2.0"
+repository  = "https://github.com/soc/dirs-sys-rs"
+maintenance = { status = "actively-developed" }
+keywords    = ["xdg", "basedir", "app_dirs", "path", "folder"]
+
+[dependencies]
+cfg-if = "0.1"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[target.'cfg(target_os = "redox")'.dependencies]
+redox_users = "0.3.0"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["knownfolders", "objbase", "shlobj", "winbase", "winerror"] }
