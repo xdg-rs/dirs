@@ -88,17 +88,33 @@ pub fn home_dir() -> Option<PathBuf> {
 
 }}
 
+#[cfg(any(target_os = "linux", target_os = "redox"))]
+mod xdg_user_dirs;
 
 #[cfg(any(target_os = "linux", target_os = "redox"))]
+use std::path::Path;
+
+#[cfg(any(target_os = "linux", target_os = "redox"))]
+use std::collections::HashMap;
+
+#[cfg(any(target_os = "linux", target_os = "redox"))]
+pub fn user_dir_file(home_dir: &Path) -> PathBuf {
+    env::var_os("XDG_CONFIG_HOME").and_then(is_absolute_path).unwrap_or_else(|| home_dir.join(".config")).join("user-dirs.dirs")
+}
+
+// this could be optimized further to not create a map and instead retrieve the requested path only
+#[cfg(any(target_os = "linux", target_os = "redox"))]
 pub fn user_dir(arg: &str) -> Option<PathBuf> {
-    use std::os::unix::ffi::OsStringExt;
-    let mut out = match std::process::Command::new("xdg-user-dir").arg(arg).output() {
-        Ok(output) => output.stdout,
-        Err(_) => return None,
-    };
-    let out_len = out.len();
-    out.truncate(out_len - 1);
-    Some(PathBuf::from(OsString::from_vec(out)))
+    if let Some(home_dir) = home_dir() {
+        xdg_user_dirs::get(&home_dir, &user_dir_file(&home_dir)).remove(arg)
+    } else {
+        None
+    }
+}
+
+#[cfg(any(target_os = "linux", target_os = "redox"))]
+pub fn user_dirs(home_dir_path: &Path, config_dir_path: &Path) -> HashMap<String, PathBuf> {
+    xdg_user_dirs::get(home_dir_path, config_dir_path)
 }
 
 
