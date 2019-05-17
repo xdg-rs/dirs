@@ -7,7 +7,19 @@
 
 # `dirs-sys`
 
-System-level helper functions for the `dirs` and `directories` crates.
+System-level helper functions for the [`dirs`](https://github.com/soc/dirs-rs)
+and [`directories`](https://github.com/soc/directories-rs) crates.
+
+_Do not use this library directly, use [`dirs`](https://github.com/soc/dirs-rs)
+or [`directories`](https://github.com/soc/directories-rs)._
+
+## Compatibility
+
+This crate only exists to facilitate code sharing between [`dirs`](https://github.com/soc/dirs-rs)
+and [`directories`](https://github.com/soc/directories-rs).
+
+There are no compatibility guarantees whatsoever.
+Functions may change or disappear without warning or any kind of deprecation period.  
 
 ## Platforms
 

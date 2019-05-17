@@ -1,13 +1,12 @@
 [package]
 name        = "dirs-sys"
-version     = "0.2.0"
+version     = "0.3.0"
 authors     = ["Simon Ochsenreither <simon@ochsenreither.de>"]
 description = "System-level helper functions for the dirs and directories crates."
 readme      = "README.md"
 license     = "MIT OR Apache-2.0"
 repository  = "https://github.com/soc/dirs-sys-rs"
-maintenance = { status = "actively-developed" }
-keywords    = ["xdg", "basedir", "app_dirs", "path", "folder"]
+maintenance = { status = "as-is" }
 
 [dependencies]
 cfg-if = "0.1"

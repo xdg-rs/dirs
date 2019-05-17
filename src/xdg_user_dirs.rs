@@ -6,16 +6,23 @@ use std::os::unix::ffi::OsStringExt;
 use std::path::{Path, PathBuf};
 use std::str;
 
-/// Returns XDG user directories obtained from $(XDG_CONFIG_HOME)/user-dirs.dirs.
-pub fn get(home_dir_path: &Path, user_dir_file_path: &Path) -> HashMap<String, PathBuf> {
+/// Returns all XDG user directories obtained from $(XDG_CONFIG_HOME)/user-dirs.dirs.
+pub fn all(home_dir_path: &Path, user_dir_file_path: &Path) -> HashMap<String, PathBuf> {
     let bytes = read_all(user_dir_file_path).unwrap_or(Vec::new());
-    parse_user_dirs(home_dir_path, &bytes)
+    parse_user_dirs(home_dir_path, None, &bytes)
 }
 
-fn parse_user_dirs(home_dir: &Path, bytes: &[u8]) -> HashMap<String, PathBuf> {
+/// Returns a single XDG user directory obtained from $(XDG_CONFIG_HOME)/user-dirs.dirs.
+pub fn single(home_dir_path: &Path, user_dir_file_path: &Path, user_dir_name: &str) -> HashMap<String, PathBuf> {
+    let bytes = read_all(user_dir_file_path).unwrap_or(Vec::new());
+    parse_user_dirs(home_dir_path, Some(user_dir_name), &bytes)
+}
+
+fn parse_user_dirs(home_dir: &Path, user_dir: Option<&str>, bytes: &[u8]) -> HashMap<String, PathBuf> {
     let mut user_dirs = HashMap::new();
 
     for line in bytes.split(|b| *b == b'\n') {
+        let mut single_dir_found = false;
         let (key, value) = match split_once(line, b'=') {
             Some(kv) => kv,
             None => continue,
@@ -24,7 +31,15 @@ fn parse_user_dirs(home_dir: &Path, bytes: &[u8]) -> HashMap<String, PathBuf> {
         let key = trim_blank(key);
         let key = if key.starts_with(b"XDG_") && key.ends_with(b"_DIR") {
             match str::from_utf8(&key[4..key.len()-4]) {
-                Ok(key) => key,
+                Ok(key) =>
+                    if user_dir.is_some() && option_contains(user_dir, key) {
+                        single_dir_found = true;
+                        key
+                    } else if user_dir.is_none() {
+                        key
+                    } else {
+                        continue
+                    },
                 Err(_)  => continue,
             }
         } else {
@@ -65,6 +80,9 @@ fn parse_user_dirs(home_dir: &Path, bytes: &[u8]) -> HashMap<String, PathBuf> {
         };
 
         user_dirs.insert(key.to_owned(), path);
+        if single_dir_found {
+            break;
+        }
     }
 
     user_dirs
@@ -119,6 +137,13 @@ fn shell_unescape(escaped: &[u8]) -> Vec<u8> {
     unescaped
 }
 
+fn option_contains<T : PartialEq>(option: Option<T>, value: T) -> bool {
+    match option {
+        Some(val) => val == value,
+        None => false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::collections::HashMap;
@@ -147,7 +172,8 @@ mod tests {
 
     #[test]
     fn test_parse_empty() {
-        assert_eq!(HashMap::new(), parse_user_dirs(Path::new("/root/"), b""));
+        assert_eq!(HashMap::new(), parse_user_dirs(Path::new("/root/"), None, b""));
+        assert_eq!(HashMap::new(), parse_user_dirs(Path::new("/root/"), Some("MUSIC"), b""));
     }
 
     #[test]
@@ -155,14 +181,16 @@ mod tests {
         let mut dirs = HashMap::new();
         dirs.insert("MUSIC".to_owned(), PathBuf::from("/media/music"));
         let bytes = br#"XDG_MUSIC_DIR="/media/music""#;
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
     }
 
     #[test]
     fn test_relative_path_is_rejected() {
         let dirs = HashMap::new();
         let bytes = br#"XDG_MUSIC_DIR="music""#;
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
     }
 
     #[test]
@@ -170,14 +198,16 @@ mod tests {
         let mut dirs = HashMap::new();
         dirs.insert("MUSIC".to_owned(), PathBuf::from("/home/john/Music"));
         let bytes = br#"XDG_MUSIC_DIR="$HOME/Music""#;
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
     }
 
     #[test]
     fn test_disabled_directory() {
         let dirs = HashMap::new();
         let bytes = br#"XDG_MUSIC_DIR="$HOME/""#;
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
     }
 
     #[test]
@@ -203,6 +233,20 @@ XDG_PICTURES_DIR="/home/eve/pics"
 XDG_VIDEOS_DIR="$HOxyzME/Videos"
 "#;
 
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), None, bytes));
+
+        let mut dirs: HashMap<String, PathBuf> = HashMap::new();
+        dirs.insert("DESKTOP".to_string(), PathBuf::from("/home/bob/Desktop"));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("DESKTOP"), bytes));
+
+        let mut dirs: HashMap<String, PathBuf> = HashMap::new();
+        dirs.insert("PICTURES".to_string(), PathBuf::from("/home/eve/pics"));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("PICTURES"), bytes));
+
+        let dirs: HashMap<String, PathBuf> = HashMap::new();
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("TEMPLATES"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("PUBLICSHARE"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("DOCUMENTS"), bytes));
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("VIDEOS"), bytes));
     }
 }
