@@ -1,6 +1,6 @@
 [package]
 name        = "dirs-sys"
-version     = "0.3.1"
+version     = "0.3.2"
 authors     = ["Simon Ochsenreither <simon@ochsenreither.de>"]
 description = "System-level helper functions for the dirs and directories crates."
 readme      = "README.md"
