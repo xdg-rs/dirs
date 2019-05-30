@@ -89,7 +89,7 @@ pub fn home_dir() -> Option<PathBuf> {
 }}
 
 cfg_if! { if #[cfg(all(
-    any(target_os = "unix", target_os = "redox"),
+    any(target_family = "unix", target_os = "redox"),
     not(any(target_os = "macos", target_os = "ios"))))] {
 
 mod xdg_user_dirs;
