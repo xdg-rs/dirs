@@ -3,6 +3,7 @@ extern crate cfg_if;
 
 use std::ffi::OsString;
 use std::path::PathBuf;
+use std::env;
 
 // we don't need to explicitly handle empty strings in the code above,
 // because an empty string is not considered to be a absolute path here.
@@ -16,11 +17,10 @@ pub fn is_absolute_path(path: OsString) -> Option<PathBuf> {
 }
 
 
-cfg_if! { if #[cfg(unix)] {
+cfg_if! { if #[cfg(all(unix, not(target_os = "redox")))] {
 
 extern crate libc;
 
-use std::env;
 use std::ffi::CStr;
 use std::mem;
 use std::os::unix::ffi::OsStringExt;
@@ -88,9 +88,7 @@ pub fn home_dir() -> Option<PathBuf> {
 
 }}
 
-cfg_if! { if #[cfg(all(
-    any(target_family = "unix", target_os = "redox"),
-    not(any(target_os = "macos", target_os = "ios"))))] {
+cfg_if! { if #[cfg(all(unix, not(any(target_os = "macos", target_os = "ios"))))] {
 
 mod xdg_user_dirs;
 
