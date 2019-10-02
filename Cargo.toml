@@ -8,9 +8,6 @@ license     = "MIT OR Apache-2.0"
 repository  = "https://github.com/soc/dirs-sys-rs"
 maintenance = { status = "as-is" }
 
-[dependencies]
-cfg-if = "0.1"
-
 [target.'cfg(unix)'.dependencies]
 libc = "0.2"
 
