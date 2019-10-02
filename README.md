@@ -26,7 +26,8 @@ Functions may change or disappear without warning or any kind of deprecation per
 This library is written in Rust, and supports Linux, Redox, macOS and Windows.
 Other platforms are also supported; they use the Linux conventions.
 
-The minimal required version of Rust is 1.13.
+The minimal required version of Rust is 1.13 except for Redox, where the minimum Rust version
+depends on the [`redox_users`](https://crates.io/crates/redox_users) crate.
 
 ## Build
 
