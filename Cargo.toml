@@ -1,11 +1,13 @@
 [package]
-name        = "dirs-sys"
-version     = "0.3.4"
-authors     = ["Simon Ochsenreither <simon@ochsenreither.de>"]
-description = "System-level helper functions for the dirs and directories crates."
+name        = "dirs-sys-next"
+version     = "0.1.0"
+authors     = ["The @xdg-rs members"]
+description = "system-level helper functions for the dirs and directories crates"
 readme      = "README.md"
 license     = "MIT OR Apache-2.0"
-repository  = "https://github.com/soc/dirs-sys-rs"
+repository  = "https://github.com/xdg-rs/dirs-sys"
+
+[badges]
 maintenance = { status = "as-is" }
 
 [target.'cfg(unix)'.dependencies]
