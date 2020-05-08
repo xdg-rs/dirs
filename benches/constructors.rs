@@ -1,12 +1,12 @@
 #[macro_use]
 extern crate bencher;
-extern crate directories;
+extern crate directories_next;
 
 use bencher::Bencher;
 use bencher::black_box;
-use directories::BaseDirs;
-use directories::ProjectDirs;
-use directories::UserDirs;
+use directories_next::BaseDirs;
+use directories_next::ProjectDirs;
+use directories_next::UserDirs;
 
 fn base_dirs(b: &mut Bencher) {
     b.iter(|| {

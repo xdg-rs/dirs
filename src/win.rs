@@ -1,4 +1,4 @@
-extern crate dirs_sys;
+extern crate dirs_sys_next;
 
 use std::path::PathBuf;
 use std::iter::FromIterator;
@@ -8,9 +8,9 @@ use UserDirs;
 use ProjectDirs;
 
 pub fn base_dirs() -> Option<BaseDirs> {
-    let home_dir       = dirs_sys::known_folder_profile();
-    let data_dir       = dirs_sys::known_folder_roaming_app_data();
-    let data_local_dir = dirs_sys::known_folder_local_app_data();
+    let home_dir       = dirs_sys_next::known_folder_profile();
+    let data_dir       = dirs_sys_next::known_folder_roaming_app_data();
+    let data_local_dir = dirs_sys_next::known_folder_local_app_data();
     if let (Some(home_dir), Some(data_dir), Some(data_local_dir)) = (home_dir, data_dir, data_local_dir) {
         let cache_dir  = data_local_dir.clone();
         let config_dir = data_dir.clone();
@@ -31,15 +31,15 @@ pub fn base_dirs() -> Option<BaseDirs> {
 }
 
 pub fn user_dirs() -> Option<UserDirs> {
-    if let Some(home_dir) = dirs_sys::known_folder_profile() {
-        let audio_dir     = dirs_sys::known_folder_music();
-        let desktop_dir   = dirs_sys::known_folder_desktop();
-        let document_dir  = dirs_sys::known_folder_documents();
-        let download_dir  = dirs_sys::known_folder_downloads();
-        let picture_dir   = dirs_sys::known_folder_pictures();
-        let public_dir    = dirs_sys::known_folder_public();
-        let template_dir  = dirs_sys::known_folder_templates();
-        let video_dir     = dirs_sys::known_folder_videos();
+    if let Some(home_dir) = dirs_sys_next::known_folder_profile() {
+        let audio_dir     = dirs_sys_next::known_folder_music();
+        let desktop_dir   = dirs_sys_next::known_folder_desktop();
+        let document_dir  = dirs_sys_next::known_folder_documents();
+        let download_dir  = dirs_sys_next::known_folder_downloads();
+        let picture_dir   = dirs_sys_next::known_folder_pictures();
+        let public_dir    = dirs_sys_next::known_folder_public();
+        let template_dir  = dirs_sys_next::known_folder_templates();
+        let video_dir     = dirs_sys_next::known_folder_videos();
 
         let user_dirs = UserDirs {
             home_dir:     home_dir,
@@ -60,8 +60,8 @@ pub fn user_dirs() -> Option<UserDirs> {
 }
 
 pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
-    let app_data_local   = dirs_sys::known_folder_local_app_data();
-    let app_data_roaming = dirs_sys::known_folder_roaming_app_data();
+    let app_data_local   = dirs_sys_next::known_folder_local_app_data();
+    let app_data_roaming = dirs_sys_next::known_folder_roaming_app_data();
     if let (Some(app_data_local), Some(app_data_roaming)) = (app_data_local, app_data_roaming) {
         let app_data_local   = app_data_local.join(&project_path);
         let app_data_roaming = app_data_roaming.join(&project_path);

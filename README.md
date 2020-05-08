@@ -1,11 +1,9 @@
-[![crates.io](https://img.shields.io/crates/v/directories.svg)](https://crates.io/crates/directories)
-[![API documentation](https://docs.rs/directories/badge.svg)](https://docs.rs/directories/)
-![actively developed](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
-[![TravisCI status](https://img.shields.io/travis/soc/directories-rs/master.svg?label=Linux/macOS%20build)](https://travis-ci.org/soc/directories-rs)
-[![AppVeyor status](https://img.shields.io/appveyor/ci/soc/directories-rs/master.svg?label=Windows%20build)](https://ci.appveyor.com/project/soc/directories-rs/branch/master)
-![License: MIT/Apache-2.0](https://img.shields.io/badge/license-MIT%2FApache--2.0-orange.svg)
+[![crates.io](https://img.shields.io/crates/v/directories-next.svg)](https://crates.io/crates/directories-next)
+[![API documentation](https://docs.rs/directories-next/badge.svg)](https://docs.rs/directories-next/)
 
-# `directories`
+# `directories-next`
+
+**NOTE**: This crate is a fork of unmaintained `directories` crate.
 
 ## Introduction
 
@@ -26,29 +24,14 @@ The library provides the location of these directories by leveraging the mechani
 This library is written in Rust, and supports Linux, Redox, macOS and Windows.
 Other platforms are also supported; they use the Linux conventions.
 
-_dirs_, the low-level sister library, is available at [dirs-rs](https://github.com/soc/dirs-rs).
+_dirs-next_, the low-level sister library, is available at [dirs-next].
 
-A version of this library running on the JVM is provided by [directories-jvm](https://github.com/soc/directories-jvm).
-
-## Usage
-
-#### Dependency
-
-Add the library as a dependency to your project by inserting
-
-```toml
-directories = "2.0"
-```
-
-into the `[dependencies]` section of your Cargo.toml file.
-
-#### Example
+## Example
 
 Library run by user Alice:
 
 ```rust
-extern crate directories;
-use directories::{BaseDirs, UserDirs, ProjectDirs};
+use directories_next::{BaseDirs, UserDirs, ProjectDirs};
 
 if let Some(proj_dirs) = ProjectDirs::from("com", "Foo Corp",  "Bar App") {
     proj_dirs.config_dir();
@@ -74,7 +57,7 @@ if let Some(user_dirs) = UserDirs::new() {
 
 ## Design Goals
 
-- The _directories_ library is designed to provide an accurate snapshot of the system's state at
+- The _directories-next_ library is designed to provide an accurate snapshot of the system's state at
   the point of invocation of `BaseDirs::new`, `UserDirs::new` or `ProjectDirs::from`. Subsequent
   changes to the state of the system are not reflected in values created prior to such a change.
 - This library does not create directories or check for their existence. The library only provides
@@ -101,7 +84,8 @@ if let Some(user_dirs) = UserDirs::new() {
 The intended use case for `BaseDirs` is to query the paths of user-invisible standard directories
 that have been defined according to the conventions of the operating system the library is running on.
 
-If you want to compute the location of cache, config or data directories for your own application or project, use `ProjectDirs` instead.
+If you want to compute the location of cache, config or data directories for your own application
+or project, use `ProjectDirs` instead.
 
 | Function name    | Value on Linux                                                                                  | Value on Windows            | Value on macOS                      |
 | ---------------- | ----------------------------------------------------------------------------------------------- | --------------------------- | ----------------------------------- |
@@ -133,7 +117,8 @@ that have been defined according to the conventions of the operating system the 
 
 ### `ProjectDirs`
 
-The intended use case for `ProjectDirs` is to compute the location of cache, config or data directories for your own application or project,
+The intended use case for `ProjectDirs` is to compute the location of cache,
+config or data directories for your own application or project,
 which are derived from the standard directories.
 
 | Function name    | Value on Linux                                                                     | Value on Windows                                    | Value on macOS                                       |
@@ -146,15 +131,19 @@ which are derived from the standard directories.
 
 The specific value of `<project_path>` is computed by the
 
-    ProjectDirs::from(qualifier: &str,
-                      organization: &str,
-                      application: &str)
+```rust
+ProjectDirs::from(qualifier: &str,
+                  organization: &str,
+                  application: &str)
+```
 
 function and varies across operating systems. As an example, calling
 
-    ProjectDirs::from("org"         /*qualifier*/,
-                      "Baz Corp"    /*organization*/,
-                      "Foo Bar-App" /*application*/)
+```rust
+ProjectDirs::from("org"         /*qualifier*/,
+                  "Baz Corp"    /*organization*/,
+                  "Foo Bar-App" /*application*/)
+```
 
 results in the following values:
 
@@ -162,29 +151,32 @@ results in the following values:
 | -------------- | ------------------------ | ---------------------------- |
 | `"foobar-app"` | `"Baz Corp/Foo Bar-App"` | `"org.Baz-Corp.Foo-Bar-App"` |
 
-The `ProjectDirs::from_path` function allows the creation of `ProjectDirs` structs directly from a `PathBuf` value.
+The `ProjectDirs::from_path` function allows the creation of `ProjectDirs` structs
+directly from a `PathBuf` value.
 This argument is used verbatim and is not adapted to operating system standards.
-The use of `ProjectDirs::from_path` is strongly discouraged, as its results will not follow operating system standards on at least two of three platforms.
+The use of `ProjectDirs::from_path` is strongly discouraged, as its results
+will not follow operating system standards on at least two of three platforms.
 
 ## Comparison
 
 There are other crates in the Rust ecosystem that try similar or related things.
-Here is an overview of them, combined with ratings on properties that guided the design of this crate.
+Here is an overview of them, combined with ratings on properties that guided
+the design of this crate.
 
-Please take this table with a grain of salt: a different crate might very well be more suitable for your specific use case.
-(Of course _my_ crate achieves _my_ design goals better than other crates, which might have had different design goals.)
+Please take this table with a grain of salt: a different crate might very well
+be more suitable for your specific use case.
 
-| Library                                                   | Status         | Lin | Mac | Win |Base|User|Proj|Conv|
-| --------------------------------------------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
-| [app_dirs](https://crates.io/crates/app_dirs)             | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
-| [app_dirs2](https://crates.io/crates/app_dirs2)           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
-| [dirs](https://crates.io/crates/dirs)                     | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
-| **directories**                                           | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
-| [s_app_dir](https://crates.io/crates/s_app_dir)           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
-| [standard_paths](https://crates.io/crates/standard_paths) | Maintained     |  ✔  |  ✖  |  ✔  | ✔  | ✔  | ✔  | ✖  |
-| [xdg](https://crates.io/crates/xdg)                       | Maintained     |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✔  | 🞈  |
-| [xdg-basedir](https://crates.io/crates/xdg-basedir)       | Unmaintained?  |  ✔  |  ✖  |  ✖  | ✔   | ✖  | ✖  | 🞈  |
-| [xdg-rs](https://crates.io/crates/xdg-rs)                 | Obsolete       |  ✔  |  ✖  |  ✖  | ✔   | ✖  | ✖  | 🞈  |
+| Library               | Status         | Lin | Mac | Win |Base|User|Proj|Conv|
+| --------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
+| `app_dirs`            | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
+| `app_dirs2`           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
+| `dirs-next`           | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
+| **directories-next**  | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
+| `s_app_dir`           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
+| `standard_paths`      | Maintained     |  ✔  |  ✖  |  ✔  | ✔  | ✔  | ✔  | ✖  |
+| `xdg`                 | Maintained     |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✔  | 🞈  |
+| `xdg-basedir`         | Unmaintained?  |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✖  | 🞈  |
+| `xdg-rs`              | Obsolete       |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✖  | 🞈  |
 
 - Lin: Linux support
 - Mac: macOS support
@@ -201,22 +193,12 @@ This is helpful to ensure a change has not broken compilation on a different pla
 
 The following commands will build this library on Linux, macOS and Windows:
 
-```
+```console
 cargo build --target=x86_64-unknown-linux-gnu
 cargo build --target=x86_64-pc-windows-gnu
 cargo build --target=x86_64-apple-darwin
 cargo build --target=x86_64-unknown-redox
 ```
-
-## Changelog
-
-### 2
-
-The behavior of deactivated, missing or invalid [_XDG User Dirs_](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)
-entries on Linux has been improved (contributed by @tmiasko, thank you!):
-
-- Version 1 returned the user's home directory (`Some($HOME)`) for such faulty entries, except for a faulty `XDG_DESKTOP_DIR` entry which returned (`Some($HOME/Desktop)`).
-- Version 2 returns `None` for such entries.
 
 ## License
 
