@@ -1,11 +1,9 @@
-[![crates.io](https://img.shields.io/crates/v/dirs.svg)](https://crates.io/crates/dirs)
-[![API documentation](https://docs.rs/dirs/badge.svg)](https://docs.rs/dirs/)
-![actively developed](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
-[![TravisCI status](https://img.shields.io/travis/soc/dirs-rs/master.svg?label=Linux/macOS%20build)](https://travis-ci.org/soc/dirs-rs)
-[![AppVeyor status](https://img.shields.io/appveyor/ci/soc/dirs-rs/master.svg?label=Windows%20build)](https://ci.appveyor.com/project/soc/dirs-rs/branch/master)
-![License: MIT/Apache-2.0](https://img.shields.io/badge/license-MIT%2FApache--2.0-orange.svg)
+[![crates.io](https://img.shields.io/crates/v/dirs-next.svg)](https://crates.io/crates/dirs-next)
+[![API documentation](https://docs.rs/dirs-next/badge.svg)](https://docs.rs/dirs-next/)
 
-# `dirs`
+# `dirs-next`
+
+**Note**: This is a fork of unmaintained `dirs` crate.
 
 ## Introduction
 
@@ -28,44 +26,29 @@ Other platforms are also supported; they use the Linux conventions.
 
 The minimal required version of Rust is 1.13.
 
-It's mid-level sister library, _directories_, is available for Rust ([directories-rs](https://github.com/soc/directories-rs))
-and on the JVM ([directories-jvm](https://github.com/soc/directories-jvm)).
+It's mid-level sister library, _directories_, is available for Rust ([directories-next]).
 
-## Usage
-
-#### Dependency
-
-Add the library as a dependency to your project by inserting
-
-```toml
-dirs = "2.0"
-```
-
-into the `[dependencies]` section of your Cargo.toml file.
-
-#### Example
+## Example
 
 Library run by user Alice:
 
 ```rust
-extern crate dirs;
-
-dirs::home_dir();
+dirs_next::home_dir();
 // Lin: Some(/home/alice)
 // Win: Some(C:\Users\Alice)
 // Mac: Some(/Users/Alice)
 
-dirs::audio_dir();
+dirs_next::audio_dir();
 // Lin: Some(/home/alice/Music)
 // Win: Some(C:\Users\Alice\Music)
 // Mac: Some(/Users/Alice/Music)
 
-dirs::config_dir();
+dirs_next::config_dir();
 // Lin: Some(/home/alice/.config)
 // Win: Some(C:\Users\Alice\AppData\Roaming)
 // Mac: Some(/Users/Alice/Library/Preferences)
 
-dirs::executable_dir();
+dirs_next::executable_dir();
 // Lin: Some(/home/alice/.local/bin)
 // Win: None
 // Mac: None
@@ -73,10 +56,10 @@ dirs::executable_dir();
 
 ## Design Goals
 
-- The _dirs_ library is a low-level crate designed to provide the paths to standard directories
+- The _dirs-next_ library is a low-level crate designed to provide the paths to standard directories
   as defined by operating systems rules or conventions. If your requirements are more complex,
   e. g. computing cache, config, etc. paths for specific applications or projects, consider using
-  [directories](https://github.com/soc/directories-rs) instead.
+  [directories-next] instead.
 - This library does not create directories or check for their existence. The library only provides
   information on what the path to a certain directory _should_ be. How this information is used is
   a decision that developers need to make based on the requirements of each individual application.
@@ -97,7 +80,7 @@ dirs::executable_dir();
 ## Features
 
 **If you want to compute the location of cache, config or data directories for your own application or project,
-use `ProjectDirs` of the [directories](https://github.com/soc/directories-rs) project instead.**
+use `ProjectDirs` of the [directories-next] project instead.**
 
 | Function name    | Value on Linux/Redox                                                                             | Value on Windows                  | Value on macOS                              |
 | ---------------- | ------------------------------------------------------------------------------------------------ | --------------------------------- | ------------------------------------------- |
@@ -124,26 +107,25 @@ There are other crates in the Rust ecosystem that try similar or related things.
 Here is an overview of them, combined with ratings on properties that guided the design of this crate.
 
 Please take this table with a grain of salt: a different crate might very well be more suitable for your specific use case.
-(Of course _my_ crate achieves _my_ design goals better than other crates, which might have had different design goals.)
 
-| Library                                                   | Status         | Lin | Mac | Win |Base|User|Proj|Conv|
-| --------------------------------------------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
-| [app_dirs](https://crates.io/crates/app_dirs)             | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
-| [app_dirs2](https://crates.io/crates/app_dirs2)           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
-| **dirs**                                                  | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
-| [directories](https://crates.io/crates/directories)       | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
-| [s_app_dir](https://crates.io/crates/s_app_dir)           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
-| [standard_paths](https://crates.io/crates/standard_paths) | Maintained     |  ✔  |  ✖  |  ✔  | ✔  | ✔  | ✔  | ✖  |
-| [xdg](https://crates.io/crates/xdg)                       | Maintained     |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✔  | 🞈  |
-| [xdg-basedir](https://crates.io/crates/xdg-basedir)       | Unmaintained?  |  ✔  |  ✖  |  ✖  | ✔   | ✖  | ✖  | 🞈  |
-| [xdg-rs](https://crates.io/crates/xdg-rs)                 | Obsolete       |  ✔  |  ✖  |  ✖  | ✔   | ✖  | ✖  | 🞈  |
+| Library               | Status         | Lin | Mac | Win |Base|User|Proj|Conv|
+| --------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
+| `app_dirs`            | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
+| `app_dirs2`           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
+| **dirs-next**         | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
+| `directories-next`    | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
+| `s_app_dir`           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
+| `standard_paths`      | Maintained     |  ✔  |  ✖  |  ✔  | ✔  | ✔  | ✔  | ✖  |
+| `xdg`                 | Maintained     |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✔  | 🞈  |
+| `xdg-basedir`         | Unmaintained?  |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✖  | 🞈  |
+| `xdg-rs`              | Obsolete       |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✖  | 🞈  |
 
 - Lin: Linux support
 - Mac: macOS support
 - Win: Windows support
-- Base: Supports [generic base directories](https://github.com/soc/directories-rs#basedirs)
-- User: Supports [user directories](https://github.com/soc/directories-rs#userdirs)
-- Proj: Supports [project-specific base directories](https://github.com/soc/directories-rs#projectdirs)
+- Base: Supports [generic base directories](https://github.com/xdg-rs/directories#basedirs)
+- User: Supports [user directories](https://github.com/xdg-rs/directories#userdirs)
+- Proj: Supports [project-specific base directories](https://github.com/xdg-rs/directories#projectdirs)
 - Conv: Follows naming conventions of the operating system it runs on
 
 ## Build
@@ -153,22 +135,12 @@ This is helpful to ensure a change hasn't broken code on a different platform.
 
 The following commands will build this library on Linux, macOS and Windows:
 
-```
+```console
 cargo build --target=x86_64-unknown-linux-gnu
 cargo build --target=x86_64-pc-windows-gnu
 cargo build --target=x86_64-apple-darwin
 cargo build --target=x86_64-unknown-redox
 ```
-
-## Changelog
-
-### 2
-
-The behavior of deactivated, missing or invalid [_XDG User Dirs_](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)
-entries on Linux has been improved (contributed by @tmiasko, thank you!):
-
-- Version 1 returned the user's home directory (`Some($HOME)`) for such faulty entries, except for a faulty `XDG_DESKTOP_DIR` entry which returned (`Some($HOME/Desktop)`).
-- Version 2 returns `None` for such entries.
 
 ## License
 
@@ -186,3 +158,5 @@ at your option.
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
 dual licensed as above, without any additional terms or conditions.
+
+[directories-next]: https://github.com/xdg-rs/directories

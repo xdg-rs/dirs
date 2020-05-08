@@ -1,8 +1,8 @@
-extern crate dirs_sys;
+extern crate dirs_sys_next;
 
 use std::path::PathBuf;
 
-pub fn home_dir()       -> Option<PathBuf> { dirs_sys::home_dir() }
+pub fn home_dir()       -> Option<PathBuf> { dirs_sys_next::home_dir() }
 pub fn cache_dir()      -> Option<PathBuf> { home_dir().map(|h| h.join("Library/Caches")) }
 pub fn config_dir()     -> Option<PathBuf> { home_dir().map(|h| h.join("Library/Preferences")) }
 pub fn data_dir()       -> Option<PathBuf> { home_dir().map(|h| h.join("Library/Application Support")) }

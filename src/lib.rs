@@ -1,4 +1,4 @@
-//! The _dirs_ crate is
+//! The _dirs-next_ crate is
 //!
 //! - a tiny library with a minimal API (16 functions)
 //! - that provides the platform-specific, user-accessible locations
