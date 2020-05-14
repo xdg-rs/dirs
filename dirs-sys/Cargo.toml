@@ -5,7 +5,7 @@ authors     = ["The @xdg-rs members"]
 description = "system-level helper functions for the dirs and directories crates"
 readme      = "README.md"
 license     = "MIT OR Apache-2.0"
-repository  = "https://github.com/xdg-rs/dirs-sys"
+repository  = "https://github.com/xdg-rs/dirs/tree/master/dirs-sys"
 
 [badges]
 maintenance = { status = "as-is" }

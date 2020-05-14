@@ -123,9 +123,9 @@ Please take this table with a grain of salt: a different crate might very well b
 - Lin: Linux support
 - Mac: macOS support
 - Win: Windows support
-- Base: Supports [generic base directories](https://github.com/xdg-rs/directories#basedirs)
-- User: Supports [user directories](https://github.com/xdg-rs/directories#userdirs)
-- Proj: Supports [project-specific base directories](https://github.com/xdg-rs/directories#projectdirs)
+- Base: Supports [generic base directories](https://github.com/xdg-rs/dirs/tree/master/directories#basedirs)
+- User: Supports [user directories](https://github.com/xdg-rs/dirs/tree/master/directories#userdirs)
+- Proj: Supports [project-specific base directories](https://github.com/xdg-rs/dirs/tree/master/directories#projectdirs)
 - Conv: Follows naming conventions of the operating system it runs on
 
 ## Build
@@ -159,4 +159,4 @@ Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
 dual licensed as above, without any additional terms or conditions.
 
-[directories-next]: https://github.com/xdg-rs/directories
+[directories-next]: https://github.com/xdg-rs/dirs/tree/master/directories

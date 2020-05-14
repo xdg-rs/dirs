@@ -11,7 +11,7 @@ on macOS.
 """
 readme      = "README.md"
 license     = "MIT OR Apache-2.0"
-repository  = "https://github.com/xdg-rs/directories"
+repository  = "https://github.com/xdg-rs/dirs/tree/master/directories"
 keywords    = ["xdg", "basedir", "app_dirs", "path", "folder"]
 
 [badges]
@@ -19,7 +19,10 @@ maintenance = { status = "passively-maintained" }
 
 [dependencies]
 cfg-if = "=0.1.9"
-dirs-sys-next = "0.1"
+
+[dependencies.dirs-sys-next]
+version = "0.1"
+path = "../dirs-sys"
 
 [dev-dependencies]
 bencher = "0.1.5"
