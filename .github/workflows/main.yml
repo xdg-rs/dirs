@@ -1,0 +1,43 @@
+name: Rust
+
+on:
+  push:
+    branches:
+      # two reserved branches for bors the bot
+      - staging
+      - trying
+  pull_request:
+    branches:
+      - master
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+      RUST_BACKTRACE: 1
+    steps:
+      - uses: actions/checkout@v2
+      - run: cargo build --all-targets --workspace
+      - run: cargo test --all-targets --workspace
+
+  rustfmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup component install rustfmt
+      - run: cargo fmt -- --check
+
+  # Check for Minimun Rust version supported
+  build-mrvs:
+    runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+      RUST_MIN_VER: '1.13.0'
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          rustup toolchain install ${{ RUST_MIN_VER }}
+          rustup default ${{ RUST_MIN_VER }}
+      - run: cargo build --workspace --all-targets
