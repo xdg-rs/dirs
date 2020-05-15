@@ -19,4 +19,10 @@ maintenance = { status = "passively-maintained" }
 
 [dependencies]
 cfg-if = "=0.1.9"
-dirs-sys-next = "0.1"
+
+[dependencies.dirs-sys-next]
+version = "0.1"
+path = "dirs-sys"
+
+[workspace]
+members = ["dirs-sys", "directories"]

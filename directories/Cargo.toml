@@ -1,0 +1,32 @@
+[package]
+name        = "directories-next"
+version     = "1.0.0"
+authors     = ["The @xdg-rs members"]
+description = """
+A tiny mid-level library that provides platform-specific standard locations of
+directories for config, cache and other data on Linux, Windows and macOS by
+leveraging the mechanisms defined by the XDG base/user directory specifications
+on Linux, the Known Folder API on Windows, and the Standard Directory guidelines
+on macOS.
+"""
+readme      = "README.md"
+license     = "MIT OR Apache-2.0"
+repository  = "https://github.com/xdg-rs/dirs/tree/master/directories"
+keywords    = ["xdg", "basedir", "app_dirs", "path", "folder"]
+
+[badges]
+maintenance = { status = "passively-maintained" }
+
+[dependencies]
+cfg-if = "=0.1.9"
+
+[dependencies.dirs-sys-next]
+version = "0.1"
+path = "../dirs-sys"
+
+[dev-dependencies]
+bencher = "0.1.5"
+
+[[bench]]
+name = "constructors"
+harness = false
