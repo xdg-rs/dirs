@@ -1,10 +1,10 @@
 status = [
-  "build (ubuntu-latest)",
-  "build (windows-latest)",
-  "build (macos-latest)",
-  "minimum-rust-version (ubuntu-latest)",
-  "minimum-rust-version (windows-latest)",
-  "minimum-rust-version (macos-latest)",
+  "build (ubuntu-latest, stable)",
+  "build (windows-latest, stable)",
+  "build (macos-latest, stable)",
+  "build (ubuntu-latest, 1%)",
+  "build (windows-latest, 1%)",
+  "build (macos-latest, 1%)",
 ]
 
 # Default timeout is one hour
