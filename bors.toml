@@ -1,0 +1,11 @@
+status = [
+  "build (ubuntu-latest)",
+  "build (windows-latest)",
+  "build (macos-latest)",
+  "minimum-rust-version (ubuntu-latest)",
+  "minimum-rust-version (windows-latest)",
+  "minimum-rust-version (macos-latest)",
+]
+
+# Default timeout is one hour
+timeout_sec = 600
