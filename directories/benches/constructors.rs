@@ -2,8 +2,8 @@
 extern crate bencher;
 extern crate directories_next;
 
-use bencher::Bencher;
 use bencher::black_box;
+use bencher::Bencher;
 use directories_next::BaseDirs;
 use directories_next::ProjectDirs;
 use directories_next::UserDirs;
@@ -32,7 +32,8 @@ fn project_dirs(b: &mut Bencher) {
     });
 }
 
-benchmark_group!(constructors,
+benchmark_group!(
+    constructors,
     base_dirs,
     user_dirs,
     project_dirs_from_path,
