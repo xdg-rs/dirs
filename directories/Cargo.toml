@@ -9,6 +9,7 @@ leveraging the mechanisms defined by the XDG base/user directory specifications
 on Linux, the Known Folder API on Windows, and the Standard Directory guidelines
 on macOS.
 """
+edition     = "2018"
 readme      = "README.md"
 license     = "MIT OR Apache-2.0"
 repository  = "https://github.com/xdg-rs/dirs/tree/master/directories"

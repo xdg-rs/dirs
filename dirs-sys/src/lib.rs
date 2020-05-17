@@ -1,3 +1,5 @@
+#![warn(rust_2018_idioms)]
+
 use std::ffi::OsString;
 use std::path::PathBuf;
 
@@ -13,9 +15,6 @@ pub fn is_absolute_path(path: OsString) -> Option<PathBuf> {
 }
 
 #[cfg(all(unix, not(target_os = "redox")))]
-extern crate libc;
-
-#[cfg(all(unix, not(target_os = "redox")))]
 mod target_unix_not_redox {
 
 use std::env;
@@ -24,8 +23,6 @@ use std::mem;
 use std::os::unix::ffi::OsStringExt;
 use std::path::PathBuf;
 use std::ptr;
-
-use super::libc;
 
 // https://github.com/rust-lang/rust/blob/master/src/libstd/sys/unix/os.rs#L498
 pub fn home_dir() -> Option<PathBuf> {
@@ -72,9 +69,6 @@ pub fn home_dir() -> Option<PathBuf> {
 
 #[cfg(all(unix, not(target_os = "redox")))]
 pub use self::target_unix_not_redox::home_dir;
-
-#[cfg(target_os = "redox")]
-extern crate redox_users;
 
 #[cfg(target_os = "redox")]
 mod target_redox {
@@ -132,9 +126,6 @@ pub fn user_dirs(home_dir_path: &Path) -> HashMap<String, PathBuf> {
 pub use self::target_unix_not_mac::{user_dir, user_dirs};
 
 #[cfg(target_os = "windows")]
-extern crate winapi;
-
-#[cfg(target_os = "windows")]
 mod target_windows {
 
 use std::ffi::OsString;
@@ -143,9 +134,8 @@ use std::path::PathBuf;
 use std::ptr;
 use std::slice;
 
-use super::winapi;
-use super::winapi::shared::winerror;
-use super::winapi::um::{combaseapi, knownfolders, shlobj, shtypes, winbase, winnt};
+use winapi::shared::winerror;
+use winapi::um::{combaseapi, knownfolders, shlobj, shtypes, winbase, winnt};
 
 pub fn known_folder(folder_id: shtypes::REFKNOWNFOLDERID) -> Option<PathBuf> {
     unsafe {

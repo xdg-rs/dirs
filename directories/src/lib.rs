@@ -13,9 +13,9 @@
 //!
 
 #![deny(missing_docs)]
+#![warn(rust_2018_idioms)]
 
-#[macro_use]
-extern crate cfg_if;
+use cfg_if::cfg_if;
 
 use std::path::Path;
 use std::path::PathBuf;
@@ -32,7 +32,7 @@ cfg_if! {
         use wasm as sys;
     } else {
         mod lin;
-        use lin as sys;
+        use crate::lin as sys;
     }
 }
 
@@ -441,21 +441,21 @@ impl ProjectDirs {
 mod tests {
     #[test]
     fn test_base_dirs() {
-        println!("BaseDirs::new())\n{:?}", ::BaseDirs::new());
+        println!("BaseDirs::new())\n{:?}", crate::BaseDirs::new());
     }
 
     #[test]
     fn test_user_dirs() {
-        println!("UserDirs::new())\n{:?}", ::UserDirs::new());
+        println!("UserDirs::new())\n{:?}", crate::UserDirs::new());
     }
 
     #[test]
     fn test_project_dirs() {
-        let proj_dirs = ::ProjectDirs::from("qux", "FooCorp", "BarApp");
+        let proj_dirs = crate::ProjectDirs::from("qux", "FooCorp", "BarApp");
         println!("ProjectDirs::from(\"qux\", \"FooCorp\", \"BarApp\")\n{:?}", proj_dirs);
-        let proj_dirs = ::ProjectDirs::from("qux.zoo", "Foo Corp", "Bar-App");
+        let proj_dirs = crate::ProjectDirs::from("qux.zoo", "Foo Corp", "Bar-App");
         println!("ProjectDirs::from(\"qux.zoo\", \"Foo Corp\", \"Bar-App\")\n{:?}", proj_dirs);
-        let proj_dirs = ::ProjectDirs::from("com", "Foo Corp.", "Bar App");
+        let proj_dirs = crate::ProjectDirs::from("com", "Foo Corp.", "Bar App");
         println!("ProjectDirs::from(\"com\", \"Foo Corp.\", \"Bar App\")\n{:?}", proj_dirs);
     }
 }

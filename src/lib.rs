@@ -12,9 +12,9 @@
 //! - the [Standard Directories](https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html#//apple_ref/doc/uid/TP40010672-CH2-SW6) on macOS.
 
 #![deny(missing_docs)]
+#![warn(rust_2018_idioms)]
 
-#[macro_use]
-extern crate cfg_if;
+use cfg_if::cfg_if;
 
 use std::path::PathBuf;
 
@@ -30,7 +30,7 @@ cfg_if! {
         use wasm as sys;
     } else {
         mod lin;
-        use lin as sys;
+        use crate::lin as sys;
     }
 }
 
@@ -252,21 +252,21 @@ pub fn video_dir() -> Option<PathBuf> {
 mod tests {
     #[test]
     fn test_dirs() {
-        println!("home_dir:       {:?}", ::home_dir());
-        println!("cache_dir:      {:?}", ::cache_dir());
-        println!("config_dir:     {:?}", ::config_dir());
-        println!("data_dir:       {:?}", ::data_dir());
-        println!("data_local_dir: {:?}", ::data_local_dir());
-        println!("executable_dir: {:?}", ::executable_dir());
-        println!("runtime_dir:    {:?}", ::runtime_dir());
-        println!("audio_dir:      {:?}", ::audio_dir());
-        println!("home_dir:       {:?}", ::desktop_dir());
-        println!("cache_dir:      {:?}", ::document_dir());
-        println!("config_dir:     {:?}", ::download_dir());
-        println!("font_dir:       {:?}", ::font_dir());
-        println!("picture_dir:    {:?}", ::picture_dir());
-        println!("public_dir:     {:?}", ::public_dir());
-        println!("template_dir:   {:?}", ::template_dir());
-        println!("video_dir:      {:?}", ::video_dir());
+        println!("home_dir:       {:?}", crate::home_dir());
+        println!("cache_dir:      {:?}", crate::cache_dir());
+        println!("config_dir:     {:?}", crate::config_dir());
+        println!("data_dir:       {:?}", crate::data_dir());
+        println!("data_local_dir: {:?}", crate::data_local_dir());
+        println!("executable_dir: {:?}", crate::executable_dir());
+        println!("runtime_dir:    {:?}", crate::runtime_dir());
+        println!("audio_dir:      {:?}", crate::audio_dir());
+        println!("home_dir:       {:?}", crate::desktop_dir());
+        println!("cache_dir:      {:?}", crate::document_dir());
+        println!("config_dir:     {:?}", crate::download_dir());
+        println!("font_dir:       {:?}", crate::font_dir());
+        println!("picture_dir:    {:?}", crate::picture_dir());
+        println!("public_dir:     {:?}", crate::public_dir());
+        println!("template_dir:   {:?}", crate::template_dir());
+        println!("video_dir:      {:?}", crate::video_dir());
     }
 }
