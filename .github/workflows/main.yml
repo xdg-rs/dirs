@@ -29,13 +29,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Rust toolchain
-        run:
-          rustup toolchain install ${{ matrix.rust }}
+        run: |
           rustup default ${{ matrix.rust }}
-        if: matrix.rust != stable
+          rustup update ${{ matrix.rust }}
       - run: cargo build --all-targets --all
       - run: cargo test --all-targets --all
-        if: matrix.rust == stable
+        if: matrix.rust == 'stable'
 
   # FIXME: enable this when we fmt all the code
   #rustfmt:
