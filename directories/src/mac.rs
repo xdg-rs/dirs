@@ -61,9 +61,7 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
     if let Some(home_dir) = dirs_sys_next::home_dir() {
         let cache_dir = home_dir.join("Library/Caches").join(&project_path);
         let config_dir = home_dir.join("Library/Preferences").join(&project_path);
-        let data_dir = home_dir
-            .join("Library/Application Support")
-            .join(&project_path);
+        let data_dir = home_dir.join("Library/Application Support").join(&project_path);
         let data_local_dir = data_dir.clone();
 
         let project_dirs = ProjectDirs {
@@ -80,11 +78,7 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
     }
 }
 
-pub fn project_dirs_from(
-    qualifier: &str,
-    organization: &str,
-    application: &str,
-) -> Option<ProjectDirs> {
+pub fn project_dirs_from(qualifier: &str, organization: &str, application: &str) -> Option<ProjectDirs> {
     // we should replace more characters, according to RFC1034 identifier rules
     let organization = organization.replace(" ", "-");
     let application = application.replace(" ", "-");

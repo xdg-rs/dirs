@@ -117,8 +117,7 @@ mod target_unix_not_mac {
     // this could be optimized further to not create a map and instead retrieve the requested path only
     pub fn user_dir(user_dir_name: &str) -> Option<PathBuf> {
         if let Some(home_dir) = home_dir() {
-            xdg_user_dirs::single(&home_dir, &user_dir_file(&home_dir), user_dir_name)
-                .remove(user_dir_name)
+            xdg_user_dirs::single(&home_dir, &user_dir_file(&home_dir), user_dir_name).remove(user_dir_name)
         } else {
             None
         }
@@ -209,8 +208,7 @@ mod target_windows {
 
 #[cfg(target_os = "windows")]
 pub use self::target_windows::{
-    known_folder, known_folder_desktop, known_folder_documents, known_folder_downloads,
-    known_folder_local_app_data, known_folder_music, known_folder_pictures, known_folder_profile,
-    known_folder_public, known_folder_roaming_app_data, known_folder_templates,
-    known_folder_videos,
+    known_folder, known_folder_desktop, known_folder_documents, known_folder_downloads, known_folder_local_app_data,
+    known_folder_music, known_folder_pictures, known_folder_profile, known_folder_public,
+    known_folder_roaming_app_data, known_folder_templates, known_folder_videos,
 };

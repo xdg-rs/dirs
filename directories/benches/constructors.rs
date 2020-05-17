@@ -32,11 +32,5 @@ fn project_dirs(b: &mut Bencher) {
     });
 }
 
-benchmark_group!(
-    constructors,
-    base_dirs,
-    user_dirs,
-    project_dirs_from_path,
-    project_dirs,
-);
+benchmark_group!(constructors, base_dirs, user_dirs, project_dirs_from_path, project_dirs,);
 benchmark_main!(constructors);
