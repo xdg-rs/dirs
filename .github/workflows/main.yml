@@ -45,3 +45,11 @@ jobs:
           rustup toolchain install 1.36.0
           rustup default 1.36.0
       - run: cargo build --all-targets --all
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup component add rustfmt
+      - run: cargo fmt -- --check --config max_width=120
+
