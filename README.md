@@ -13,6 +13,7 @@
 - on Linux, Redox, Windows (≥ Vista), macOS and other platforms.
 
 The library provides the location of these directories by leveraging the mechanisms defined by
+
 - the [XDG base directory](https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) and
   the [XDG user directory](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/) specifications on Linux and Redox
 - the [Known Folder](https://msdn.microsoft.com/en-us/library/windows/desktop/dd378457.aspx) API on Windows
@@ -108,18 +109,18 @@ Here is an overview of them, combined with ratings on properties that guided the
 
 Please take this table with a grain of salt: a different crate might very well be more suitable for your specific use case.
 
-| Library            | Status        | Lin | Mac | Win | Base | User | Proj | Conv |
-| ------------------ | ------------- | :-: | :-: | :-: | :--: | :--: | :--: | :--: |
-| `app_dirs`         | Unmaintained  |  ✔  |  ✔  |  ✔  |  🞈   |  ✖   |  ✔   |  ✖   |
-| `app_dirs2`        | Maintained    |  ✔  |  ✔  |  ✔  |  🞈   |  ✖   |  ✔   |  ✖   |
-| **dirs-next**      | **Developed** |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✖   |  ✔   |
-| dirs               | Unmaintained  |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✖   |  ✔   |
-| `directories-next` | Developed     |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✔   |  ✔   |
-| `s_app_dir`        | Unmaintained? |  ✔  |  ✖  |  🞈  |  ✖   |  ✖   |  🞈   |  ✖   |
-| `standard_paths`   | Maintained    |  ✔  |  ✖  |  ✔  |  ✔   |  ✔   |  ✔   |  ✖   |
-| `xdg`              | Maintained    |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✔   |  🞈   |
-| `xdg-basedir`      | Unmaintained? |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✖   |  🞈   |
-| `xdg-rs`           | Obsolete      |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✖   |  🞈   |
+| Library                                                         | Status        | Lin | Mac | Win | Base | User | Proj | Conv |
+| --------------------------------------------------------------- | ------------- | :-: | :-: | :-: | :--: | :--: | :--: | :--: |
+| [`app_dirs`](https://crates.io/crates/app_dirs)                 | Unmaintained  |  ✔  |  ✔  |  ✔  |  🞈   |  ✖   |  ✔   |  ✖   |
+| [`app_dirs2`](https://crates.io/crates/app_dirs2)               | Maintained    |  ✔  |  ✔  |  ✔  |  🞈   |  ✖   |  ✔   |  ✖   |
+| [**dirs-next**](https://crates.io/crates/dirs-next)             | **Developed** |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✖   |  ✔   |
+| [`dirs`](https://crates.io/crates/dirs)                         | Unmaintained  |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✖   |  ✔   |
+| [`directories-next`](https://crates.io/crates/directories-next) | Developed     |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✔   |  ✔   |
+| [`s_app_dir`](https://crates.io/crates/s_app_dir)               | Unmaintained? |  ✔  |  ✖  |  🞈  |  ✖   |  ✖   |  🞈   |  ✖   |
+| [`standard_paths`](https://crates.io/crates/standard_paths)     | Maintained    |  ✔  |  ✖  |  ✔  |  ✔   |  ✔   |  ✔   |  ✖   |
+| [`xdg`](https://crates.io/crates/xdg)                           | Maintained    |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✔   |  🞈   |
+| [`xdg-basedir`](https://crates.io/crates/xdg-basedir)           | Unmaintained? |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✖   |  🞈   |
+| [`xdg-rs`](https://crates.io/crates/xdg-rs)                     | Obsolete      |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✖   |  🞈   |
 
 - Lin: Linux support
 - Mac: macOS support
@@ -147,10 +148,10 @@ cargo build --target=x86_64-unknown-redox
 
 Licensed under either of
 
- * Apache License, Version 2.0
-   ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license
-   ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+- Apache License, Version 2.0
+  ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
+- MIT license
+  ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.
 
