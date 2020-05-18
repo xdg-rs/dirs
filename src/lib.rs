@@ -84,7 +84,7 @@ pub fn cache_dir() -> Option<PathBuf> {
 /// |Platform | Value                                 | Example                          |
 /// | ------- | ------------------------------------- | -------------------------------- |
 /// | Linux   | `$XDG_CONFIG_HOME` or `$HOME`/.config | /home/alice/.config              |
-/// | macOS   | `$HOME`/Library/Preferences           | /Users/Alice/Library/Preferences |
+/// | macOS   | `$HOME`/Library/Application Support           | /Users/Alice/Library/Application Support |
 /// | Windows | `{FOLDERID_RoamingAppData}`           | C:\Users\Alice\AppData\Roaming   |
 pub fn config_dir() -> Option<PathBuf> {
     sys::config_dir()

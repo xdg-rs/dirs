@@ -37,7 +37,7 @@ if let Some(proj_dirs) = ProjectDirs::from("com", "Foo Corp",  "Bar App") {
     proj_dirs.config_dir();
     // Lin: /home/alice/.config/barapp
     // Win: C:\Users\Alice\AppData\Roaming\Foo Corp\Bar App\config
-    // Mac: /Users/Alice/Library/Preferences/com.Foo-Corp.Bar-App
+    // Mac: /Users/Alice/Library/Application Support/com.Foo-Corp.Bar-App
 }
 
 if let Some(base_dirs) = BaseDirs::new() {
@@ -91,7 +91,7 @@ or project, use `ProjectDirs` instead.
 | ---------------- | ----------------------------------------------------------------------------------------------- | --------------------------- | ----------------------------------- |
 | `home_dir`       | `$HOME`                                                                                         | `{FOLDERID_Profile}`        | `$HOME`                             |
 | `cache_dir`      | `$XDG_CACHE_HOME`              or `$HOME`/.cache                                                | `{FOLDERID_LocalAppData}`   | `$HOME`/Library/Caches              |
-| `config_dir`     | `$XDG_CONFIG_HOME`             or `$HOME`/.config                                               | `{FOLDERID_RoamingAppData}` | `$HOME`/Library/Preferences         |
+| `config_dir`     | `$XDG_CONFIG_HOME`             or `$HOME`/.config                                               | `{FOLDERID_RoamingAppData}` | `$HOME`/Library/Application Support         |
 | `data_dir`       | `$XDG_DATA_HOME`               or `$HOME`/.local/share                                          | `{FOLDERID_RoamingAppData}` | `$HOME`/Library/Application Support |
 | `data_local_dir` | `$XDG_DATA_HOME`               or `$HOME`/.local/share                                          | `{FOLDERID_LocalAppData}`   | `$HOME`/Library/Application Support |
 | `executable_dir` | `Some($XDG_BIN_HOME`/../bin`)` or `Some($XDG_DATA_HOME`/../bin`)` or `Some($HOME`/.local/bin`)` | `None`                      | `None`                              |
@@ -124,7 +124,7 @@ which are derived from the standard directories.
 | Function name    | Value on Linux                                                                     | Value on Windows                                    | Value on macOS                                       |
 | ---------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------- |
 | `cache_dir`      | `$XDG_CACHE_HOME`/`<project_path>`        or `$HOME`/.cache/`<project_path>`       | `{FOLDERID_LocalAppData}`/`<project_path>`/cache    | `$HOME`/Library/Caches/`<project_path>`              |
-| `config_dir`     | `$XDG_CONFIG_HOME`/`<project_path>`       or `$HOME`/.config/`<project_path>`      | `{FOLDERID_RoamingAppData}`/`<project_path>`/config | `$HOME`/Library/Preferences/`<project_path>`         |
+| `config_dir`     | `$XDG_CONFIG_HOME`/`<project_path>`       or `$HOME`/.config/`<project_path>`      | `{FOLDERID_RoamingAppData}`/`<project_path>`/config | `$HOME`/Library/Application Support/`<project_path>`         |
 | `data_dir`       | `$XDG_DATA_HOME`/`<project_path>`         or `$HOME`/.local/share/`<project_path>` | `{FOLDERID_RoamingAppData}`/`<project_path>`/data   | `$HOME`/Library/Application Support/`<project_path>` |
 | `data_local_dir` | `$XDG_DATA_HOME`/`<project_path>`         or `$HOME`/.local/share/`<project_path>` | `{FOLDERID_LocalAppData}`/`<project_path>`/data     | `$HOME`/Library/Application Support/`<project_path>` |
 | `runtime_dir`    | `Some($XDG_RUNTIME_DIR`/`_project_path_)`                                          | `None`                                              | `None`                                               |
