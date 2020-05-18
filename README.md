@@ -108,17 +108,18 @@ Here is an overview of them, combined with ratings on properties that guided the
 
 Please take this table with a grain of salt: a different crate might very well be more suitable for your specific use case.
 
-| Library               | Status         | Lin | Mac | Win |Base|User|Proj|Conv|
-| --------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
-| `app_dirs`            | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
-| `app_dirs2`           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
-| **dirs-next**         | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
-| `directories-next`    | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
-| `s_app_dir`           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
-| `standard_paths`      | Maintained     |  ✔  |  ✖  |  ✔  | ✔  | ✔  | ✔  | ✖  |
-| `xdg`                 | Maintained     |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✔  | 🞈  |
-| `xdg-basedir`         | Unmaintained?  |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✖  | 🞈  |
-| `xdg-rs`              | Obsolete       |  ✔  |  ✖  |  ✖  | ✔  | ✖  | ✖  | 🞈  |
+| Library            | Status        | Lin | Mac | Win | Base | User | Proj | Conv |
+| ------------------ | ------------- | :-: | :-: | :-: | :--: | :--: | :--: | :--: |
+| `app_dirs`         | Unmaintained  |  ✔  |  ✔  |  ✔  |  🞈   |  ✖   |  ✔   |  ✖   |
+| `app_dirs2`        | Maintained    |  ✔  |  ✔  |  ✔  |  🞈   |  ✖   |  ✔   |  ✖   |
+| **dirs-next**      | **Developed** |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✖   |  ✔   |
+| dirs               | Unmaintained  |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✖   |  ✔   |
+| `directories-next` | Developed     |  ✔  |  ✔  |  ✔  |  ✔   |  ✔   |  ✔   |  ✔   |
+| `s_app_dir`        | Unmaintained? |  ✔  |  ✖  |  🞈  |  ✖   |  ✖   |  🞈   |  ✖   |
+| `standard_paths`   | Maintained    |  ✔  |  ✖  |  ✔  |  ✔   |  ✔   |  ✔   |  ✖   |
+| `xdg`              | Maintained    |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✔   |  🞈   |
+| `xdg-basedir`      | Unmaintained? |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✖   |  🞈   |
+| `xdg-rs`           | Obsolete      |  ✔  |  ✖  |  ✖  |  ✔   |  ✖   |  ✖   |  🞈   |
 
 - Lin: Linux support
 - Mac: macOS support
