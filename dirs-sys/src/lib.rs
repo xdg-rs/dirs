@@ -47,13 +47,7 @@ mod target_unix_not_redox {
             let mut buf = Vec::with_capacity(amt);
             let mut passwd: libc::passwd = mem::zeroed();
             let mut result = ptr::null_mut();
-            match libc::getpwuid_r(
-                libc::getuid(),
-                &mut passwd,
-                buf.as_mut_ptr(),
-                buf.capacity(),
-                &mut result,
-            ) {
+            match libc::getpwuid_r(libc::getuid(), &mut passwd, buf.as_mut_ptr(), buf.capacity(), &mut result) {
                 0 if !result.is_null() => {
                     let ptr = passwd.pw_dir as *const _;
                     let bytes = CStr::from_ptr(ptr).to_bytes();

@@ -454,14 +454,8 @@ mod tests {
         let proj_dirs = ::ProjectDirs::from("qux", "FooCorp", "BarApp");
         println!("ProjectDirs::from(\"qux\", \"FooCorp\", \"BarApp\")\n{:?}", proj_dirs);
         let proj_dirs = ::ProjectDirs::from("qux.zoo", "Foo Corp", "Bar-App");
-        println!(
-            "ProjectDirs::from(\"qux.zoo\", \"Foo Corp\", \"Bar-App\")\n{:?}",
-            proj_dirs
-        );
+        println!("ProjectDirs::from(\"qux.zoo\", \"Foo Corp\", \"Bar-App\")\n{:?}", proj_dirs);
         let proj_dirs = ::ProjectDirs::from("com", "Foo Corp.", "Bar App");
-        println!(
-            "ProjectDirs::from(\"com\", \"Foo Corp.\", \"Bar App\")\n{:?}",
-            proj_dirs
-        );
+        println!("ProjectDirs::from(\"com\", \"Foo Corp.\", \"Bar App\")\n{:?}", proj_dirs);
     }
 }

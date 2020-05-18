@@ -99,10 +99,7 @@ fn read_all(path: &Path) -> io::Result<Vec<u8>> {
 
 /// Returns bytes before and after first occurrence of separator.
 fn split_once(bytes: &[u8], separator: u8) -> Option<(&[u8], &[u8])> {
-    bytes
-        .iter()
-        .position(|b| *b == separator)
-        .map(|i| (&bytes[..i], &bytes[i + 1..]))
+    bytes.iter().position(|b| *b == separator).map(|i| (&bytes[..i], &bytes[i + 1..]))
 }
 
 /// Returns a slice with leading and trailing <blank> characters removed.
@@ -112,12 +109,7 @@ fn trim_blank(bytes: &[u8]) -> &[u8] {
     let bytes = &bytes[i..];
 
     // Trim trailing <blank> characters.
-    let i = bytes
-        .iter()
-        .cloned()
-        .rev()
-        .take_while(|b| *b == b' ' || *b == b'\t')
-        .count();
+    let i = bytes.iter().cloned().rev().take_while(|b| *b == b' ' || *b == b'\t').count();
     &bytes[..bytes.len() - i]
 }
 
@@ -168,10 +160,7 @@ mod tests {
     #[test]
     fn test_split_once() {
         assert_eq!(None, split_once(b"a b c", b'='));
-        assert_eq!(
-            Some((b"before".as_ref(), b"after".as_ref())),
-            split_once(b"before=after", b'=')
-        );
+        assert_eq!(Some((b"before".as_ref(), b"after".as_ref())), split_once(b"before=after", b'='));
     }
 
     #[test]
@@ -255,10 +244,7 @@ XDG_VIDEOS_DIR="$HOxyzME/Videos"
 
         let dirs: HashMap<String, PathBuf> = HashMap::new();
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("TEMPLATES"), bytes));
-        assert_eq!(
-            dirs,
-            parse_user_dirs(Path::new("/home/bob"), Some("PUBLICSHARE"), bytes)
-        );
+        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("PUBLICSHARE"), bytes));
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("DOCUMENTS"), bytes));
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("VIDEOS"), bytes));
     }
