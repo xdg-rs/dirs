@@ -170,6 +170,8 @@ be more suitable for your specific use case.
 | --------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
 | `app_dirs`            | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
 | `app_dirs2`           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
+| `dirs`                | Unmaintained   |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
+| `directories`         | Unmaintained   |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
 | `dirs-next`           | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
 | **directories-next**  | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
 | `s_app_dir`           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
