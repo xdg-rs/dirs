@@ -112,6 +112,8 @@ Please take this table with a grain of salt: a different crate might very well b
 | --------------------- | -------------- |:---:|:---:|:---:|:--:|:--:|:--:|:--:|
 | `app_dirs`            | Unmaintained   |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
 | `app_dirs2`           | Maintained     |  ✔  |  ✔  |  ✔  | 🞈  | ✖  | ✔  | ✖  |
+| `dirs`                | Unmaintained   |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
+| `directories`         | Unmaintained   |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
 | **dirs-next**         | **Developed**  |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✖  | ✔  |
 | `directories-next`    | Developed      |  ✔  |  ✔  |  ✔  | ✔  | ✔  | ✔  | ✔  |
 | `s_app_dir`           | Unmaintained?  |  ✔  |  ✖  |  🞈  | ✖  | ✖  | 🞈  | ✖  |
