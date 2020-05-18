@@ -1,0 +1,3 @@
+use_small_heuristics = "Max"
+merge_derives = false
+max_width = 120
