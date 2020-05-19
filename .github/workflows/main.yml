@@ -42,6 +42,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          rustup toolchain install 1.36.0
-          rustup default 1.36.0
+          rustup toolchain install 1.34.0
+          rustup default 1.34.0
       - run: cargo build --all-targets --all
