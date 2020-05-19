@@ -1,11 +1,9 @@
-extern crate dirs_sys_next;
-
 use std::path::PathBuf;
 use std::iter::FromIterator;
 
-use BaseDirs;
-use UserDirs;
-use ProjectDirs;
+use crate::BaseDirs;
+use crate::UserDirs;
+use crate::ProjectDirs;
 
 pub fn base_dirs() -> Option<BaseDirs> {
     let home_dir       = dirs_sys_next::known_folder_profile();

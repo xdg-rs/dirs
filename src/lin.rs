@@ -1,5 +1,3 @@
-extern crate dirs_sys_next;
-
 use std::env;
 use std::path::PathBuf;
 
@@ -28,7 +26,7 @@ pub fn video_dir()      -> Option<PathBuf> { dirs_sys_next::user_dir("VIDEOS") }
 mod tests {
     #[test]
     fn test_file_user_dirs_exists() {
-        let user_dirs_file = ::config_dir().unwrap().join("user-dirs.dirs");
+        let user_dirs_file = crate::config_dir().unwrap().join("user-dirs.dirs");
         println!("{:?} exists: {:?}", user_dirs_file, user_dirs_file.exists());
     }
 }

@@ -1,5 +1,3 @@
-extern crate dirs_sys_next;
-
 use std::path::PathBuf;
 
 pub fn home_dir()       -> Option<PathBuf> { dirs_sys_next::known_folder_profile() }

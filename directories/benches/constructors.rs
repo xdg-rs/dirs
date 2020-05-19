@@ -1,7 +1,4 @@
-#[macro_use]
-extern crate bencher;
-extern crate directories_next;
-
+use bencher::{benchmark_group, benchmark_main};
 use bencher::Bencher;
 use bencher::black_box;
 use directories_next::BaseDirs;

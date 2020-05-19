@@ -1,10 +1,8 @@
-extern crate dirs_sys_next;
-
 use std::path::PathBuf;
 
-use BaseDirs;
-use UserDirs;
-use ProjectDirs;
+use crate::BaseDirs;
+use crate::UserDirs;
+use crate::ProjectDirs;
 
 pub fn base_dirs() -> Option<BaseDirs> {
     if let Some(home_dir)  = dirs_sys_next::home_dir() {
