@@ -5,6 +5,8 @@
 
 **NOTE**: This crate is a fork of unmaintained `directories` crate.
 
+There is a low-level sister library, [dirs-next].
+
 ## Introduction
 
 - a tiny mid-level library with a minimal API
@@ -23,8 +25,6 @@ The library provides the location of these directories by leveraging the mechani
 
 This library is written in Rust, and supports Linux, Redox, macOS and Windows.
 Other platforms are also supported; they use the Linux conventions.
-
-_dirs-next_, the low-level sister library, is available at [dirs-next].
 
 ## Example
 
@@ -216,3 +216,5 @@ at your option.
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
 dual licensed as above, without any additional terms or conditions.
+
+[dirs-next]: https://github.com/xdg-rs/dirs
