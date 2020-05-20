@@ -13,12 +13,20 @@ pub fn all(home_dir_path: &Path, user_dir_file_path: &Path) -> HashMap<String, P
 }
 
 /// Returns a single XDG user directory obtained from $(XDG_CONFIG_HOME)/user-dirs.dirs.
-pub fn single(home_dir_path: &Path, user_dir_file_path: &Path, user_dir_name: &str) -> HashMap<String, PathBuf> {
+pub fn single(
+    home_dir_path: &Path,
+    user_dir_file_path: &Path,
+    user_dir_name: &str,
+) -> HashMap<String, PathBuf> {
     let bytes = read_all(user_dir_file_path).unwrap_or(Vec::new());
     parse_user_dirs(home_dir_path, Some(user_dir_name), &bytes)
 }
 
-fn parse_user_dirs(home_dir: &Path, user_dir: Option<&str>, bytes: &[u8]) -> HashMap<String, PathBuf> {
+fn parse_user_dirs(
+    home_dir: &Path,
+    user_dir: Option<&str>,
+    bytes: &[u8],
+) -> HashMap<String, PathBuf> {
     let mut user_dirs = HashMap::new();
 
     for line in bytes.split(|b| *b == b'\n') {
@@ -108,7 +116,11 @@ fn split_once(bytes: &[u8], separator: u8) -> Option<(&[u8], &[u8])> {
 /// Returns a slice with leading and trailing <blank> characters removed.
 fn trim_blank(bytes: &[u8]) -> &[u8] {
     // Trim leading <blank> characters.
-    let i = bytes.iter().cloned().take_while(|b| *b == b' ' || *b == b'\t').count();
+    let i = bytes
+        .iter()
+        .cloned()
+        .take_while(|b| *b == b' ' || *b == b'\t')
+        .count();
     let bytes = &bytes[i..];
 
     // Trim trailing <blank> characters.
@@ -182,8 +194,14 @@ mod tests {
 
     #[test]
     fn test_parse_empty() {
-        assert_eq!(HashMap::new(), parse_user_dirs(Path::new("/root/"), None, b""));
-        assert_eq!(HashMap::new(), parse_user_dirs(Path::new("/root/"), Some("MUSIC"), b""));
+        assert_eq!(
+            HashMap::new(),
+            parse_user_dirs(Path::new("/root/"), None, b"")
+        );
+        assert_eq!(
+            HashMap::new(),
+            parse_user_dirs(Path::new("/root/"), Some("MUSIC"), b"")
+        );
     }
 
     #[test]
@@ -192,7 +210,10 @@ mod tests {
         dirs.insert("MUSIC".to_owned(), PathBuf::from("/media/music"));
         let bytes = br#"XDG_MUSIC_DIR="/media/music""#;
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes)
+        );
     }
 
     #[test]
@@ -200,7 +221,10 @@ mod tests {
         let dirs = HashMap::new();
         let bytes = br#"XDG_MUSIC_DIR="music""#;
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes)
+        );
     }
 
     #[test]
@@ -209,7 +233,10 @@ mod tests {
         dirs.insert("MUSIC".to_owned(), PathBuf::from("/home/john/Music"));
         let bytes = br#"XDG_MUSIC_DIR="$HOME/Music""#;
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes)
+        );
     }
 
     #[test]
@@ -217,7 +244,10 @@ mod tests {
         let dirs = HashMap::new();
         let bytes = br#"XDG_MUSIC_DIR="$HOME/""#;
         assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), None, bytes));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/john"), Some("MUSIC"), bytes)
+        );
     }
 
     #[test]
@@ -247,19 +277,34 @@ XDG_VIDEOS_DIR="$HOxyzME/Videos"
 
         let mut dirs: HashMap<String, PathBuf> = HashMap::new();
         dirs.insert("DESKTOP".to_string(), PathBuf::from("/home/bob/Desktop"));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("DESKTOP"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/bob"), Some("DESKTOP"), bytes)
+        );
 
         let mut dirs: HashMap<String, PathBuf> = HashMap::new();
         dirs.insert("PICTURES".to_string(), PathBuf::from("/home/eve/pics"));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("PICTURES"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/bob"), Some("PICTURES"), bytes)
+        );
 
         let dirs: HashMap<String, PathBuf> = HashMap::new();
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("TEMPLATES"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/bob"), Some("TEMPLATES"), bytes)
+        );
         assert_eq!(
             dirs,
             parse_user_dirs(Path::new("/home/bob"), Some("PUBLICSHARE"), bytes)
         );
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("DOCUMENTS"), bytes));
-        assert_eq!(dirs, parse_user_dirs(Path::new("/home/bob"), Some("VIDEOS"), bytes));
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/bob"), Some("DOCUMENTS"), bytes)
+        );
+        assert_eq!(
+            dirs,
+            parse_user_dirs(Path::new("/home/bob"), Some("VIDEOS"), bytes)
+        );
     }
 }

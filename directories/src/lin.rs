@@ -103,8 +103,15 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
     }
 }
 
-pub fn project_dirs_from(_qualifier: &str, _organization: &str, application: &str) -> Option<ProjectDirs> {
-    ProjectDirs::from_path(PathBuf::from(&trim_and_lowercase_then_replace_spaces(application, "")))
+pub fn project_dirs_from(
+    _qualifier: &str,
+    _organization: &str,
+    application: &str,
+) -> Option<ProjectDirs> {
+    ProjectDirs::from_path(PathBuf::from(&trim_and_lowercase_then_replace_spaces(
+        application,
+        "",
+    )))
 }
 
 fn trim_and_lowercase_then_replace_spaces(name: &str, replacement: &str) -> String {

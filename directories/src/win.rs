@@ -11,7 +11,9 @@ pub fn base_dirs() -> Option<BaseDirs> {
     let home_dir = dirs_sys_next::known_folder_profile();
     let data_dir = dirs_sys_next::known_folder_roaming_app_data();
     let data_local_dir = dirs_sys_next::known_folder_local_app_data();
-    if let (Some(home_dir), Some(data_dir), Some(data_local_dir)) = (home_dir, data_dir, data_local_dir) {
+    if let (Some(home_dir), Some(data_dir), Some(data_local_dir)) =
+        (home_dir, data_dir, data_local_dir)
+    {
         let cache_dir = data_local_dir.clone();
         let config_dir = data_dir.clone();
 
@@ -84,6 +86,10 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
     }
 }
 
-pub fn project_dirs_from(_qualifier: &str, organization: &str, application: &str) -> Option<ProjectDirs> {
+pub fn project_dirs_from(
+    _qualifier: &str,
+    organization: &str,
+    application: &str,
+) -> Option<ProjectDirs> {
     ProjectDirs::from_path(PathBuf::from_iter(&[organization, application]))
 }

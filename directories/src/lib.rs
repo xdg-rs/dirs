@@ -452,7 +452,10 @@ mod tests {
     #[test]
     fn test_project_dirs() {
         let proj_dirs = ::ProjectDirs::from("qux", "FooCorp", "BarApp");
-        println!("ProjectDirs::from(\"qux\", \"FooCorp\", \"BarApp\")\n{:?}", proj_dirs);
+        println!(
+            "ProjectDirs::from(\"qux\", \"FooCorp\", \"BarApp\")\n{:?}",
+            proj_dirs
+        );
         let proj_dirs = ::ProjectDirs::from("qux.zoo", "Foo Corp", "Bar-App");
         println!(
             "ProjectDirs::from(\"qux.zoo\", \"Foo Corp\", \"Bar-App\")\n{:?}",
