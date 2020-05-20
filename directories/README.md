@@ -26,6 +26,13 @@ The library provides the location of these directories by leveraging the mechani
 This library is written in Rust, and supports Linux, Redox, macOS and Windows.
 Other platforms are also supported; they use the Linux conventions.
 
+## Minimum Rust version policy
+
+The minimal required version of Rust is `1.34.0`.
+
+We may bump the Rust version in major and minor releases (`x`/`y` in `x.y.z`).
+Changing the Rust version will be written in the CHANGELOG.
+
 ## Example
 
 Library run by user Alice:
