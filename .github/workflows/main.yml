@@ -26,13 +26,12 @@ jobs:
       - run: cargo build --all-targets --workspace
       - run: cargo test --all-targets --workspace
 
-  # FIXME: enable this when we fmt all the code
-  #rustfmt:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - uses: actions/checkout@v2
-  #    - run: rustup component add rustfmt
-  #    - run: cargo fmt -- --check
+  rustfmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup component add rustfmt
+      - run: cargo fmt -- --check
 
   minimum-rust-version:
     runs-on: ${{ matrix.os }}
