@@ -30,43 +30,41 @@ fn parse_user_dirs(home_dir: &Path, user_dir: Option<&str>, bytes: &[u8]) -> Has
 
         let key = trim_blank(key);
         let key = if key.starts_with(b"XDG_") && key.ends_with(b"_DIR") {
-            match str::from_utf8(&key[4..key.len()-4]) {
-                Ok(key) =>
+            match str::from_utf8(&key[4..key.len() - 4]) {
+                Ok(key) => {
                     if user_dir.is_some() && option_contains(user_dir, key) {
                         single_dir_found = true;
                         key
                     } else if user_dir.is_none() {
                         key
                     } else {
-                        continue
-                    },
-                Err(_)  => continue,
+                        continue;
+                    }
+                }
+                Err(_) => continue,
             }
         } else {
-            continue
+            continue;
         };
 
         // xdg-user-dirs-update uses double quotes and we don't support anything else.
         let value = trim_blank(value);
-        let mut value = if value.starts_with(b"\"") && value.ends_with(b"\"") {
-            &value[1..value.len()-1]
-        } else {
-            continue
-        };
+        let mut value =
+            if value.starts_with(b"\"") && value.ends_with(b"\"") { &value[1..value.len() - 1] } else { continue };
 
         // Path should be either relative to the home directory or absolute.
         let is_relative = if value == b"$HOME/" {
             // "Note: To disable a directory, point it to the homedir."
             // Source: https://www.freedesktop.org/wiki/Software/xdg-user-dirs/
             // Additionally directory is reassigned to homedir when removed.
-            continue
+            continue;
         } else if value.starts_with(b"$HOME/") {
             value = &value[b"$HOME/".len()..];
             true
         } else if value.starts_with(b"/") {
             false
         } else {
-            continue
+            continue;
         };
 
         let value = OsString::from_vec(shell_unescape(value));
@@ -98,9 +96,7 @@ fn read_all(path: &Path) -> io::Result<Vec<u8>> {
 
 /// Returns bytes before and after first occurrence of separator.
 fn split_once(bytes: &[u8], separator: u8) -> Option<(&[u8], &[u8])> {
-    bytes.iter().position(|b| *b == separator).map(|i| {
-        (&bytes[..i], &bytes[i+1..])
-    })
+    bytes.iter().position(|b| *b == separator).map(|i| (&bytes[..i], &bytes[i + 1..]))
 }
 
 /// Returns a slice with leading and trailing <blank> characters removed.
@@ -111,7 +107,7 @@ fn trim_blank(bytes: &[u8]) -> &[u8] {
 
     // Trim trailing <blank> characters.
     let i = bytes.iter().cloned().rev().take_while(|b| *b == b' ' || *b == b'\t').count();
-    &bytes[..bytes.len()-i]
+    &bytes[..bytes.len() - i]
 }
 
 /// Unescape bytes escaped with POSIX shell double-quotes rules (as used by xdg-user-dirs-update).
@@ -137,18 +133,18 @@ fn shell_unescape(escaped: &[u8]) -> Vec<u8> {
     unescaped
 }
 
-fn option_contains<T : PartialEq>(option: Option<T>, value: T) -> bool {
+fn option_contains<T: PartialEq>(option: Option<T>, value: T) -> bool {
     match option {
         Some(val) => val == value,
-        None => false
+        None => false,
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use super::{parse_user_dirs, shell_unescape, split_once, trim_blank};
     use std::collections::HashMap;
     use std::path::{Path, PathBuf};
-    use super::{trim_blank, shell_unescape, split_once, parse_user_dirs};
 
     #[test]
     fn test_trim_blank() {
