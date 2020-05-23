@@ -19,7 +19,7 @@ keywords    = ["xdg", "basedir", "app_dirs", "path", "folder"]
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
-cfg-if = "=0.1.9"
+cfg-if = "0.1"
 
 [dependencies.dirs-sys-next]
 version = "0.1"
