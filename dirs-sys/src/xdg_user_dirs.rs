@@ -8,13 +8,13 @@ use std::str;
 
 /// Returns all XDG user directories obtained from $(XDG_CONFIG_HOME)/user-dirs.dirs.
 pub fn all(home_dir_path: &Path, user_dir_file_path: &Path) -> HashMap<String, PathBuf> {
-    let bytes = read_all(user_dir_file_path).unwrap_or(Vec::new());
+    let bytes = read_all(user_dir_file_path).unwrap_or_default();
     parse_user_dirs(home_dir_path, None, &bytes)
 }
 
 /// Returns a single XDG user directory obtained from $(XDG_CONFIG_HOME)/user-dirs.dirs.
 pub fn single(home_dir_path: &Path, user_dir_file_path: &Path, user_dir_name: &str) -> HashMap<String, PathBuf> {
-    let bytes = read_all(user_dir_file_path).unwrap_or(Vec::new());
+    let bytes = read_all(user_dir_file_path).unwrap_or_default();
     parse_user_dirs(home_dir_path, Some(user_dir_name), &bytes)
 }
 

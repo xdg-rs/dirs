@@ -44,3 +44,14 @@ jobs:
           rustup toolchain install 1.34.0
           rustup default 1.34.0
       - run: cargo build --all-targets --all
+
+  clippy:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup component add clippy
+        # FIXME: Remove `-- -A clippy::option_as_ref_deref` when MSRV is bumped past 1.40.0
+      - run: cargo clippy --all --all-targets -- -A clippy::option_as_ref_deref
