@@ -11,6 +11,9 @@ pub fn cache_dir() -> Option<PathBuf> {
 pub fn config_dir() -> Option<PathBuf> {
     None
 }
+pub fn preference_dir() -> Option<PathBuf> {
+    None
+}
 pub fn data_dir() -> Option<PathBuf> {
     None
 }

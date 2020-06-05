@@ -92,6 +92,7 @@ use `ProjectDirs` of the [directories-next] project instead.**
 | `home_dir`       | `Some($HOME)`                                                                                    | `Some({FOLDERID_Profile})`        | `Some($HOME)`                               |
 | `cache_dir`      | `Some($XDG_CACHE_HOME)`         or `Some($HOME`/.cache`)`                                        | `Some({FOLDERID_LocalAppData})`   | `Some($HOME`/Library/Caches`)`              |
 | `config_dir`     | `Some($XDG_CONFIG_HOME)`        or `Some($HOME`/.config`)`                                       | `Some({FOLDERID_RoamingAppData})` | `Some($HOME`/Library/Application Support`)` |
+| `preference_dir` | `Some($XDG_CONFIG_HOME)`        or `Some($HOME`/.config`)`                                       | `Some({FOLDERID_RoamingAppData})` | `Some($HOME`/Library/Preferences`)`         |
 | `data_dir`       | `Some($XDG_DATA_HOME)`          or `Some($HOME`/.local/share`)`                                  | `Some({FOLDERID_RoamingAppData})` | `Some($HOME`/Library/Application Support`)` |
 | `data_local_dir` | `Some($XDG_DATA_HOME)`          or `Some($HOME`/.local/share`)`                                  | `Some({FOLDERID_LocalAppData})`   | `Some($HOME`/Library/Application Support`)` |
 | `executable_dir` | `Some($XDG_BIN_HOME`/../bin`)`  or `Some($XDG_DATA_HOME`/../bin`)` or `Some($HOME`/.local/bin`)` | `None`                            | `None`                                      |

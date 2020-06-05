@@ -14,6 +14,9 @@ pub fn config_dir() -> Option<PathBuf> {
         .and_then(dirs_sys_next::is_absolute_path)
         .or_else(|| home_dir().map(|h| h.join(".config")))
 }
+pub fn preference_dir() -> Option<PathBuf> {
+    config_dir()
+}
 pub fn data_dir() -> Option<PathBuf> {
     env::var_os("XDG_DATA_HOME")
         .and_then(dirs_sys_next::is_absolute_path)

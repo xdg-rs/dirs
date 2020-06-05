@@ -1,6 +1,6 @@
 //! The _dirs-next_ crate is
 //!
-//! - a tiny library with a minimal API (16 functions)
+//! - a tiny library with a minimal API (17 functions)
 //! - that provides the platform-specific, user-accessible locations
 //! - for finding and storing configuration, cache and other data
 //! - on Linux, Redox, Windows (≥ Vista) and macOS.
@@ -76,13 +76,25 @@ pub fn cache_dir() -> Option<PathBuf> {
 ///
 /// The returned value depends on the operating system and is either a `Some`, containing a value from the following table, or a `None`.
 ///
+/// |Platform | Value                                 | Example                                  |
+/// | ------- | ------------------------------------- | ---------------------------------------- |
+/// | Linux   | `$XDG_CONFIG_HOME` or `$HOME`/.config | /home/alice/.config                      |
+/// | macOS   | `$HOME`/Library/Application Support   | /Users/Alice/Library/Application Support |
+/// | Windows | `{FOLDERID_RoamingAppData}`           | C:\Users\Alice\AppData\Roaming           |
+pub fn config_dir() -> Option<PathBuf> {
+    sys::config_dir()
+}
+/// Returns the path to the user's preference directory.
+///
+/// The returned value depends on the operating system and is either a `Some`, containing a value from the following table, or a `None`.
+///
 /// |Platform | Value                                 | Example                          |
 /// | ------- | ------------------------------------- | -------------------------------- |
 /// | Linux   | `$XDG_CONFIG_HOME` or `$HOME`/.config | /home/alice/.config              |
-/// | macOS   | `$HOME`/Library/Application Support   | /Users/Alice/Library/Application Support |
+/// | macOS   | `$HOME`/Library/Preferences           | /Users/Alice/Library/Preferences |
 /// | Windows | `{FOLDERID_RoamingAppData}`           | C:\Users\Alice\AppData\Roaming   |
-pub fn config_dir() -> Option<PathBuf> {
-    sys::config_dir()
+pub fn preference_dir() -> Option<PathBuf> {
+    sys::preference_dir()
 }
 /// Returns the path to the user's data directory.
 ///
@@ -250,6 +262,7 @@ mod tests {
         println!("home_dir:       {:?}", crate::home_dir());
         println!("cache_dir:      {:?}", crate::cache_dir());
         println!("config_dir:     {:?}", crate::config_dir());
+        println!("preference_dir: {:?}", crate::preference_dir());
         println!("data_dir:       {:?}", crate::data_dir());
         println!("data_local_dir: {:?}", crate::data_local_dir());
         println!("executable_dir: {:?}", crate::executable_dir());
