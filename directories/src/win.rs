@@ -12,11 +12,13 @@ pub fn base_dirs() -> Option<BaseDirs> {
     if let (Some(home_dir), Some(data_dir), Some(data_local_dir)) = (home_dir, data_dir, data_local_dir) {
         let cache_dir = data_local_dir.clone();
         let config_dir = data_dir.clone();
+        let preference_dir = data_dir.clone();
 
         let base_dirs = BaseDirs {
             home_dir,
             cache_dir,
             config_dir,
+            preference_dir,
             data_dir,
             data_local_dir,
             executable_dir: None,
@@ -66,10 +68,18 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
         let cache_dir = app_data_local.join("cache");
         let data_local_dir = app_data_local.join("data");
         let config_dir = app_data_roaming.join("config");
+        let preference_dir = config_dir.clone();
         let data_dir = app_data_roaming.join("data");
 
-        let project_dirs =
-            ProjectDirs { project_path, cache_dir, config_dir, data_dir, data_local_dir, runtime_dir: None };
+        let project_dirs = ProjectDirs {
+            project_path,
+            cache_dir,
+            config_dir,
+            preference_dir,
+            data_dir,
+            data_local_dir,
+            runtime_dir: None,
+        };
         Some(project_dirs)
     } else {
         None

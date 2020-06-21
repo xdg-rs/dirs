@@ -56,6 +56,7 @@ pub struct BaseDirs {
     // base directories
     cache_dir: PathBuf,
     config_dir: PathBuf,
+    preference_dir: PathBuf,
     data_dir: PathBuf,
     data_local_dir: PathBuf,
     executable_dir: Option<PathBuf>,
@@ -119,6 +120,7 @@ pub struct ProjectDirs {
     // base directories
     cache_dir: PathBuf,
     config_dir: PathBuf,
+    preference_dir: PathBuf,
     data_dir: PathBuf,
     data_local_dir: PathBuf,
     runtime_dir: Option<PathBuf>,
@@ -175,13 +177,23 @@ impl BaseDirs {
     }
     /// Returns the path to the user's config directory.
     ///
+    /// |Platform | Value                                 | Example                                  |
+    /// | ------- | ------------------------------------- | ---------------------------------------- |
+    /// | Linux   | `$XDG_CONFIG_HOME` or `$HOME`/.config | /home/alice/.config                      |
+    /// | macOS   | `$HOME`/Library/Application Support   | /Users/Alice/Library/Application Support |
+    /// | Windows | `{FOLDERID_RoamingAppData}`           | C:\Users\Alice\AppData\Roaming           |
+    pub fn config_dir(&self) -> &Path {
+        self.config_dir.as_path()
+    }
+    /// Returns the path to the user's preference directory.
+    ///
     /// |Platform | Value                                 | Example                          |
     /// | ------- | ------------------------------------- | -------------------------------- |
     /// | Linux   | `$XDG_CONFIG_HOME` or `$HOME`/.config | /home/alice/.config              |
-    /// | macOS   | `$HOME`/Library/Application Support   | /Users/Alice/Library/Application Support |
+    /// | macOS   | `$HOME`/Library/Preferences           | /Users/Alice/Library/Preferences |
     /// | Windows | `{FOLDERID_RoamingAppData}`           | C:\Users\Alice\AppData\Roaming   |
-    pub fn config_dir(&self) -> &Path {
-        self.config_dir.as_path()
+    pub fn preference_dir(&self) -> &Path {
+        self.preference_dir.as_path()
     }
     /// Returns the path to the user's data directory.
     ///
@@ -392,13 +404,23 @@ impl ProjectDirs {
     }
     /// Returns the path to the project's config directory.
     ///
+    /// |Platform | Value                                                                   | Example                                                        |
+    /// | ------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+    /// | Linux   | `$XDG_CONFIG_HOME`/`_project_path_` or `$HOME`/.config/`_project_path_` | /home/alice/.config/barapp                                     |
+    /// | macOS   | `$HOME`/Library/Application Support/`_project_path_`                    | /Users/Alice/Library/Application Support/com.Foo-Corp.Bar-App  |
+    /// | Windows | `{FOLDERID_RoamingAppData}`\\`_project_path_`\\config                   | C:\Users\Alice\AppData\Roaming\Foo Corp\Bar App\config         |
+    pub fn config_dir(&self) -> &Path {
+        self.config_dir.as_path()
+    }
+    /// Returns the path to the project's preference directory.
+    ///
     /// |Platform | Value                                                                   | Example                                                |
     /// | ------- | ----------------------------------------------------------------------- | ------------------------------------------------------ |
     /// | Linux   | `$XDG_CONFIG_HOME`/`_project_path_` or `$HOME`/.config/`_project_path_` | /home/alice/.config/barapp                             |
-    /// | macOS   | `$HOME`/Library/Application Support/`_project_path_`                    | /Users/Alice/Library/Application Support/com.Foo-Corp.Bar-App  |
+    /// | macOS   | `$HOME`/Library/Preferences/`_project_path_`                            | /Users/Alice/Library/Preferences/com.Foo-Corp.Bar-App  |
     /// | Windows | `{FOLDERID_RoamingAppData}`\\`_project_path_`\\config                   | C:\Users\Alice\AppData\Roaming\Foo Corp\Bar App\config |
-    pub fn config_dir(&self) -> &Path {
-        self.config_dir.as_path()
+    pub fn preference_dir(&self) -> &Path {
+        self.preference_dir.as_path()
     }
     /// Returns the path to the project's data directory.
     ///

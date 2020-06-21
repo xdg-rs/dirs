@@ -8,6 +8,7 @@ pub fn base_dirs() -> Option<BaseDirs> {
     if let Some(home_dir) = dirs_sys_next::home_dir() {
         let cache_dir = home_dir.join("Library/Caches");
         let config_dir = home_dir.join("Library/Application Support");
+        let preference_dir = home_dir.join("Library/Preferences");
         let data_dir = config_dir.clone();
         let data_local_dir = data_dir.clone();
 
@@ -15,6 +16,7 @@ pub fn base_dirs() -> Option<BaseDirs> {
             home_dir,
             cache_dir,
             config_dir,
+            preference_dir,
             data_dir,
             data_local_dir,
             executable_dir: None,
@@ -59,11 +61,19 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
     if let Some(home_dir) = dirs_sys_next::home_dir() {
         let cache_dir = home_dir.join("Library/Caches").join(&project_path);
         let config_dir = home_dir.join("Library/Application Support").join(&project_path);
+        let preference_dir = home_dir.join("Library/Preferences").join(&project_path);
         let data_dir = config_dir.clone();
         let data_local_dir = data_dir.clone();
 
-        let project_dirs =
-            ProjectDirs { project_path, cache_dir, config_dir, data_dir, data_local_dir, runtime_dir: None };
+        let project_dirs = ProjectDirs {
+            project_path,
+            cache_dir,
+            config_dir,
+            preference_dir,
+            data_dir,
+            data_local_dir,
+            runtime_dir: None,
+        };
         Some(project_dirs)
     } else {
         None
