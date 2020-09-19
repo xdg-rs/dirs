@@ -3,7 +3,7 @@
 
 # `dirs-sys-next`
 
-**NOTE**: This crate is a fork of unmaintained `dirs-sys` crate.
+**NOTE**: This crate is a fork of once-abandoned `dirs-sys` crate.
 
 _Do not use this library directly, use [`dirs-next`] or [`directories-next`]._
 

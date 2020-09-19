@@ -3,7 +3,7 @@
 
 # `dirs-next`
 
-**Note**: This is a fork of unmaintained `dirs` crate.
+**Note**: This is a fork of once-abandoned `dirs` crate.
 
 There is a mid-level sister library, [directories-next].
 
