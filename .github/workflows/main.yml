@@ -80,6 +80,7 @@ jobs:
             # FIXME: Remove `-- -A clippy::option_as_ref_deref` when MSRV is bumped past 1.40.0
             cargo clippy --all-targets --all --target "$target" \
               -- \
-              -A clippy::option_as_ref_deref
+              -A clippy::option_as_ref_deref \
+              -A clippy::redundant_field_names
           done
         shell: bash
