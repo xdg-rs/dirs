@@ -102,7 +102,7 @@ jobs:
           echo "${{ github.base_ref }}"
           echo "${{ github.event_name }}"
           echo "${{ github.ref }}"
-          echo "${{ github.event.push.pusher.name }}"
+          echo "${{ github.event.pusher.name }}"
       - name: mark the job as a success
         run: exit 0
   end-failure:
