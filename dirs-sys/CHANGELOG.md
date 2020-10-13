@@ -31,4 +31,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Use `default-features=false` for `redox_users` crate. This should cut out quite a few
   unneeded dependencies.
 
-[1.0.1]: https://github.com/xdg-rs/dirs/releases/tag/dirs-sys-v1.0.1
+[0.1.1]: https://github.com/xdg-rs/dirs/releases/tag/dirs-sys-v0.1.1
