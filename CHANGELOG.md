@@ -26,6 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `Security` in case of vulnerabilities.
  -->
 
+<!-- next-header -->
+## [Unreleased] - ReleaseDate
+
 ## [1.0.1]
 ### Fixed
 * Relax pinning `cfg-if` at `0.1.9`. Previously we inherited that from upstream repository when forking.
@@ -35,5 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This is the re-publish of `dirs` crate as is.
 
+<!-- next-url -->
+[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.1...HEAD
 [1.0.1]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.0...dirs-v1.0.1
 [1.0.0]: https://github.com/xdg-rs/dirs/releases/tag/dirs-v1.0.0

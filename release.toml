@@ -1,0 +1,16 @@
+# Reference: <https://github.com/sunng87/cargo-release/blob/master/docs/reference.md>
+disable-push = true
+disable-publish = true
+no-dev-version = true
+tag-prefix = "dirs-"
+# sign-commit = false
+sign-tag = true
+pre-release-commit-message = "chore({{crate_name}}): Release {{version}}"
+pre-release-replacements = [
+  {file="CHANGELOG.md", search="Unreleased", replace="{{version}}"},
+  {file="CHANGELOG.md", search="ReleaseDate", replace="{{date}}"},
+  {file="CHANGELOG.md", search="<!-- next-header -->", replace="<!-- next-header -->\n## [Unreleased] - ReleaseDate\n"},
+  {file="CHANGELOG.md", search="\\.\\.\\.HEAD", replace="...{{tag_name}}"},
+  {file="CHANGELOG.md", search="<!-- next-url -->", replace="<!-- next-url -->\n[Unreleased]: https://github.com/xdg-rs/dirs/compare/{{tag_name}}...HEAD", exactly=1},
+]
+exclude-paths = []
