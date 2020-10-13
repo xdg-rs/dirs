@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+
+## [1.0.2] - 2020-10-13
 ### Changed
 * Bump cfg-if version to v1
 
@@ -41,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This is the re-publish of `dirs` crate as is.
 
 <!-- next-url -->
-[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.1...HEAD
+[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.2...HEAD
+[1.0.2]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.1...dirs-v1.0.2
 [1.0.1]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.0...dirs-v1.0.1
 [1.0.0]: https://github.com/xdg-rs/dirs/releases/tag/dirs-v1.0.0
