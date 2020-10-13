@@ -26,6 +26,17 @@ jobs:
       - run: cargo build --all-targets --workspace
       - run: cargo test --all-targets --workspace
 
+  redox_check:
+    runs-on: ubuntu-latest
+    env:
+      RUST_BACKTRACE: 1
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          rustup default nightly
+          rustup target add x86_64-unknown-redox
+      - run: cargo check --all-targets --workspace --target x86_64-unknown-redox
+
   rustfmt:
     runs-on: ubuntu-latest
     steps:
