@@ -68,7 +68,7 @@ mod target_redox {
 
     use std::path::PathBuf;
 
-    use super::redox_users::{All, AllUsers, Config};
+    use redox_users::{All, AllUsers, Config};
 
     pub fn home_dir() -> Option<PathBuf> {
         let current_uid = redox_users::get_uid().ok()?;
