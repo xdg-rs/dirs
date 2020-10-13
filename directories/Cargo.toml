@@ -1,6 +1,6 @@
 [package]
 name        = "directories-next"
-version     = "1.0.1"
+version     = "1.0.2"
 authors     = ["The @xdg-rs members"]
 description = """
 A tiny mid-level library that provides platform-specific standard locations of
