@@ -2,9 +2,9 @@
 
 use std::path::PathBuf;
 
-use BaseDirs;
-use UserDirs;
-use ProjectDirs;
+use crate::BaseDirs;
+use crate::UserDirs;
+use crate::ProjectDirs;
 
 pub fn base_dirs() -> Option<BaseDirs> { None }
 pub fn user_dirs() -> Option<UserDirs> { None }
