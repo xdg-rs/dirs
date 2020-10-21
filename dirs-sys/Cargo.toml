@@ -7,6 +7,13 @@ edition     = "2018"
 readme      = "README.md"
 license     = "MIT OR Apache-2.0"
 repository  = "https://github.com/xdg-rs/dirs/tree/master/dirs-sys"
+include = [
+    '/CHANGELOG.md',
+    '/Cargo.toml',
+    '/LICENSE-*',
+    '/README.md',
+    '/src',
+]
 
 [badges]
 maintenance = { status = "as-is" }
