@@ -28,6 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+### Breaking changed
+* Behavior of `config_dir` on macOS is changed.
+  According to [Apple guideline][appple-configdir], configuration files should be placed
+  in subdirectory of `Library/Application Support`. The old behavior of `config_dir`
+  returns `Library/Preferences`, which is incorrect. As users should use `CFPreferences`
+  API to get and set preference values for their app instead.
+
+[appple-configdir]: https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html#//apple_ref/doc/uid/TP40010672-CH2-SW1
 
 ## [1.0.2] - 2020-10-13
 ### Changed
