@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+
+## [2.0.0] - 2020-10-22
 ### Breaking changed
 * Behavior of `config_dir` on macOS is changed.
   According to [Apple guideline][appple-configdir], configuration files should be placed
@@ -51,7 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This is the re-publish of `dirs` crate as is.
 
 <!-- next-url -->
-[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.2...HEAD
+[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-v2.0.0...HEAD
+[2.0.0]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.2...dirs-v2.0.0
 [1.0.2]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.1...dirs-v1.0.2
 [1.0.1]: https://github.com/xdg-rs/dirs/compare/dirs-v1.0.0...dirs-v1.0.1
 [1.0.0]: https://github.com/xdg-rs/dirs/releases/tag/dirs-v1.0.0
