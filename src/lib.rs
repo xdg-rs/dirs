@@ -14,25 +14,20 @@
 #![deny(missing_docs)]
 #![warn(rust_2018_idioms)]
 
-use cfg_if::cfg_if;
+#[cfg(windows)]
+#[path = "win.rs"]
+mod sys;
+#[cfg(any(target_os = "macos", target_os = "ios"))]
+#[path = "mac.rs"]
+mod sys;
+#[cfg(target_arch = "wasm32")]
+#[path = "wasm.rs"]
+mod sys;
+#[cfg(not(any(target_arch = "wasm32", windows, target_os = "macos", target_os = "ios")))]
+#[path = "lin.rs"]
+mod sys;
 
 use std::path::PathBuf;
-
-cfg_if! {
-    if #[cfg(target_os = "windows")] {
-        mod win;
-        use win as sys;
-    } else if #[cfg(any(target_os = "macos", target_os = "ios"))] {
-        mod mac;
-        use mac as sys;
-    } else if #[cfg(target_arch = "wasm32")] {
-        mod wasm;
-        use wasm as sys;
-    } else {
-        mod lin;
-        use crate::lin as sys;
-    }
-}
 
 /// Returns the path to the user's home directory.
 ///

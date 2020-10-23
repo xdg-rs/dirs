@@ -24,7 +24,7 @@ mod target_unix_not_redox {
     use std::path::PathBuf;
     use std::ptr;
 
-    // https://github.com/rust-lang/rust/blob/master/src/libstd/sys/unix/os.rs#L498
+    // https://github.com/rust-lang/rust/blob/ef3e3863939217678e5f7e755c4234d224107c64/library/std/src/sys/unix/os.rs#L587
     pub fn home_dir() -> Option<PathBuf> {
         return env::var_os("HOME")
             .and_then(|h| if h.is_empty() { None } else { Some(h) })
