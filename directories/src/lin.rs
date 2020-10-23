@@ -99,7 +99,7 @@ fn trim_and_lowercase_then_replace_spaces(name: &str, replacement: &str) -> Stri
 
 #[cfg(test)]
 mod tests {
-    use crate::lin::trim_and_lowercase_then_replace_spaces;
+    use super::trim_and_lowercase_then_replace_spaces;
 
     #[test]
     fn test_trim_and_lowercase_then_replace_spaces() {
