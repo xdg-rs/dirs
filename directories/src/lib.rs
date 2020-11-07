@@ -60,6 +60,7 @@ pub struct BaseDirs {
     data_local_dir: PathBuf,
     executable_dir: Option<PathBuf>,
     runtime_dir: Option<PathBuf>,
+    state_dir: Option<PathBuf>,
 }
 
 /// `UserDirs` provides paths of user-facing standard directories, following the conventions of the operating system the library is running on.
@@ -122,6 +123,7 @@ pub struct ProjectDirs {
     data_dir: PathBuf,
     data_local_dir: PathBuf,
     runtime_dir: Option<PathBuf>,
+    state_dir: Option<PathBuf>,
 }
 
 impl BaseDirs {
@@ -222,6 +224,18 @@ impl BaseDirs {
     /// | Windows | –                  | –               |
     pub fn runtime_dir(&self) -> Option<&Path> {
         self.runtime_dir.as_ref().map(|p| p.as_path())
+    }
+    /// Returns the path to the user's application state directory.
+    ///
+    /// The returned value depends on the operating system and is either a `Some`, containing a value from the following table, or a `None`.
+    ///
+    /// |Platform | Value                                     | Example                |
+    /// | ------- | ----------------------------------------- | ---------------------- |
+    /// | Linux   | `$XDG_STATE_HOME` or `$HOME`/.local/state | /home/alice/.local/bin |
+    /// | macOS   | –                                         | –                      |
+    /// | Windows | –                                         | –                      |
+    pub fn state_dir(&self) -> Option<&Path> {
+        self.state_dir.as_ref().map(|p| p.as_path())
     }
 }
 
@@ -429,6 +443,18 @@ impl ProjectDirs {
     /// | Windows | –                                   | –                     |
     pub fn runtime_dir(&self) -> Option<&Path> {
         self.runtime_dir.as_ref().map(|p| p.as_path())
+    }
+    /// Returns the path to the project's application state directory.
+    ///
+    /// The returned value depends on the operating system and is either a `Some`, containing a value from the following table, or a `None`.
+    ///
+    /// |Platform | Value                                     | Example                |
+    /// | ------- | ----------------------------------------- | ---------------------- |
+    /// | Linux   | `$XDG_STATE_HOME` or `$HOME`/.local/state | /home/alice/.local/bin |
+    /// | macOS   | –                                         | –                      |
+    /// | Windows | –                                         | –                      |
+    pub fn state_dir(&self) -> Option<&Path> {
+        self.state_dir.as_ref().map(|p| p.as_path())
     }
 }
 

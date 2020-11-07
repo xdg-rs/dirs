@@ -21,6 +21,9 @@ pub fn executable_dir() -> Option<PathBuf> {
 pub fn runtime_dir() -> Option<PathBuf> {
     None
 }
+pub fn state_dir() -> Option<PathBuf> {
+    None
+}
 pub fn audio_dir() -> Option<PathBuf> {
     home_dir().map(|h| h.join("Music"))
 }

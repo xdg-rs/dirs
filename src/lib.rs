@@ -1,6 +1,6 @@
 //! The _dirs-next_ crate is
 //!
-//! - a tiny library with a minimal API (16 functions)
+//! - a tiny library with a minimal API (17 functions)
 //! - that provides the platform-specific, user-accessible locations
 //! - for finding and storing configuration, cache and other data
 //! - on Linux, Redox, Windows (≥ Vista) and macOS.
@@ -132,6 +132,18 @@ pub fn executable_dir() -> Option<PathBuf> {
 pub fn runtime_dir() -> Option<PathBuf> {
     sys::runtime_dir()
 }
+/// Returns the path to the user's application state directory.
+///
+/// The returned value depends on the operating system and is either a `Some`, containing a value from the following table, or a `None`.
+///
+/// |Platform | Value                                     | Example                |
+/// | ------- | ----------------------------------------- | ---------------------- |
+/// | Linux   | `$XDG_STATE_HOME` or `$HOME`/.local/state | /home/alice/.local/bin |
+/// | macOS   | –                                         | –                      |
+/// | Windows | –                                         | –                      |
+pub fn state_dir() -> Option<PathBuf> {
+    sys::state_dir()
+}
 
 /// Returns the path to the user's audio directory.
 ///
@@ -254,6 +266,7 @@ mod tests {
         println!("data_local_dir: {:?}", crate::data_local_dir());
         println!("executable_dir: {:?}", crate::executable_dir());
         println!("runtime_dir:    {:?}", crate::runtime_dir());
+        println!("state_dir:      {:?}", crate::state_dir());
         println!("audio_dir:      {:?}", crate::audio_dir());
         println!("home_dir:       {:?}", crate::desktop_dir());
         println!("cache_dir:      {:?}", crate::document_dir());
