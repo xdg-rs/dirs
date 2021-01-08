@@ -22,7 +22,7 @@ maintenance = { status = "as-is" }
 libc = "0.2"
 
 [target.'cfg(target_os = "redox")'.dependencies]
-redox_users = { version = "0.3.0", default-features = false }
+redox_users = { version = "0.4.0", default-features = false }
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3", features = ["knownfolders", "objbase", "shlobj", "winbase", "winerror"] }
