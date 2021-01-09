@@ -1,6 +1,6 @@
 [package]
 name        = "dirs-sys-next"
-version     = "0.1.1"
+version     = "0.1.2"
 authors     = ["The @xdg-rs members"]
 description = "system-level helper functions for the dirs and directories crates"
 edition     = "2018"

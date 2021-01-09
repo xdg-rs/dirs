@@ -29,11 +29,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+## [0.1.2] - 2021-01-09
+### Changed
+* Bump `redox_users` by @benesch.
+
 ## [0.1.1] - 2020-10-13
 ### Changed
 * Use `default-features=false` for `redox_users` crate. This should cut out quite a few
   unneeded dependencies.
 
 <!-- next-url -->
-[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-sys-v0.1.1...HEAD
+[Unreleased]: https://github.com/xdg-rs/dirs/compare/dirs-sys-v0.1.2...HEAD
+[0.1.2]: https://github.com/xdg-rs/dirs/compare/dirs-sys-v0.1.1...dirs-sys-v0.1.2
 [0.1.1]: https://github.com/xdg-rs/dirs/releases/tag/dirs-sys-v0.1.1
