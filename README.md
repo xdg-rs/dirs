@@ -96,6 +96,7 @@ use `ProjectDirs` of the [directories-next] project instead.**
 | `data_local_dir` | `Some($XDG_DATA_HOME)`          or `Some($HOME`/.local/share`)`                                  | `Some({FOLDERID_LocalAppData})`   | `Some($HOME`/Library/Application Support`)` |
 | `executable_dir` | `Some($XDG_BIN_HOME`/../bin`)`  or `Some($XDG_DATA_HOME`/../bin`)` or `Some($HOME`/.local/bin`)` | `None`                            | `None`                                      |
 | `runtime_dir`    | `Some($XDG_RUNTIME_DIR)`        or `None`                                                        | `None`                            | `None`                                      |
+| `state_dir`      | `Some($XDG_STATE_HOME)`         or `Some($HOME`/.local/state`)`                                  | `None`                            | `None`                                      |
 | `audio_dir`      | `Some(XDG_MUSIC_DIR)`           or `None`                                                        | `Some({FOLDERID_Music})`          | `Some($HOME`/Music/`)`                      |
 | `desktop_dir`    | `Some(XDG_DESKTOP_DIR)`         or `None`                                                        | `Some({FOLDERID_Desktop})`        | `Some($HOME`/Desktop/`)`                    |
 | `document_dir`   | `Some(XDG_DOCUMENTS_DIR)`       or `None`                                                        | `Some({FOLDERID_Documents})`      | `Some($HOME`/Documents/`)`                  |

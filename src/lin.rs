@@ -34,6 +34,11 @@ pub fn executable_dir() -> Option<PathBuf> {
         })
     })
 }
+pub fn state_dir() -> Option<PathBuf> {
+    env::var_os("XDG_STATE_HOME")
+        .and_then(dirs_sys_next::is_absolute_path)
+        .or_else(|| home_dir().map(|h| h.join(".local/state")))
+}
 pub fn audio_dir() -> Option<PathBuf> {
     dirs_sys_next::user_dir("MUSIC")
 }
