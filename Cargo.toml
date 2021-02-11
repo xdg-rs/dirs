@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "dirs-sys",
+    "dirs",
+    "directories",
+]
+default-members = ["dirs"]
