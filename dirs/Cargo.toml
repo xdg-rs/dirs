@@ -30,7 +30,4 @@ maintenance = { status = "passively-maintained" }
 
 [dependencies.dirs-sys-next]
 version = "0.1"
-path = "dirs-sys"
-
-[workspace]
-members = ["dirs-sys", "directories"]
+path = "../dirs-sys"
