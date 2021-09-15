@@ -1,6 +1,6 @@
 //! The _dirs-next_ crate is
 //!
-//! - a tiny library with a minimal API (17 functions)
+//! - a tiny library with a minimal API (18 functions)
 //! - that provides the platform-specific, user-accessible locations
 //! - for finding and storing configuration, cache and other data
 //! - on Linux, Redox, Windows (≥ Vista) and macOS.
@@ -144,6 +144,22 @@ pub fn executable_dir() -> Option<PathBuf> {
 pub fn runtime_dir() -> Option<PathBuf> {
     sys::runtime_dir()
 }
+/// Returns the path to the user's state directory.
+///
+/// The state directory contains data that should be retained between sessions (unlike the runtime
+/// directory), but may not be important/portable enough to be synchronized across machines (unlike
+/// the config/preferences/data directories).
+///
+/// The returned value depends on the operating system and is either a `Some`, containing a value from the following table, or a `None`.
+///
+/// |Platform | Value                                     | Example                  |
+/// | ------- | ----------------------------------------- | ------------------------ |
+/// | Linux   | `$XDG_STATE_HOME` or `$HOME`/.local/state | /home/alice/.local/state |
+/// | macOS   | –                                         | –                        |
+/// | Windows | –                                         | –                        |
+pub fn state_dir() -> Option<PathBuf> {
+    sys::state_dir()
+}
 
 /// Returns the path to the user's audio directory.
 ///
@@ -260,6 +276,7 @@ mod tests {
     #[test]
     fn test_dirs() {
         println!("home_dir:       {:?}", crate::home_dir());
+        println!();
         println!("cache_dir:      {:?}", crate::cache_dir());
         println!("config_dir:     {:?}", crate::config_dir());
         println!("preference_dir: {:?}", crate::preference_dir());
@@ -267,8 +284,10 @@ mod tests {
         println!("data_local_dir: {:?}", crate::data_local_dir());
         println!("executable_dir: {:?}", crate::executable_dir());
         println!("runtime_dir:    {:?}", crate::runtime_dir());
+        println!("state_dir:      {:?}", crate::state_dir());
+        println!();
         println!("audio_dir:      {:?}", crate::audio_dir());
-        println!("home_dir:       {:?}", crate::desktop_dir());
+        println!("desktop_dir:    {:?}", crate::desktop_dir());
         println!("cache_dir:      {:?}", crate::document_dir());
         println!("config_dir:     {:?}", crate::download_dir());
         println!("font_dir:       {:?}", crate::font_dir());

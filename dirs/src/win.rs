@@ -3,6 +3,7 @@ use std::path::PathBuf;
 pub fn home_dir() -> Option<PathBuf> {
     dirs_sys_next::known_folder_profile()
 }
+
 pub fn data_dir() -> Option<PathBuf> {
     dirs_sys_next::known_folder_roaming_app_data()
 }
@@ -24,6 +25,10 @@ pub fn executable_dir() -> Option<PathBuf> {
 pub fn runtime_dir() -> Option<PathBuf> {
     None
 }
+pub fn state_dir() -> Option<PathBuf> {
+    None
+}
+
 pub fn audio_dir() -> Option<PathBuf> {
     dirs_sys_next::known_folder_music()
 }
