@@ -19,13 +19,9 @@ pub fn base_dirs() -> Option<BaseDirs> {
             .unwrap_or_else(|| home_dir.join(".local/share"));
         let data_local_dir = data_dir.clone();
         let runtime_dir = env::var_os("XDG_RUNTIME_DIR").and_then(dirs_sys_next::is_absolute_path);
-        let executable_dir =
-            env::var_os("XDG_BIN_HOME").and_then(dirs_sys_next::is_absolute_path).unwrap_or_else(|| {
-                let mut new_dir = data_dir.clone();
-                new_dir.pop();
-                new_dir.push("bin");
-                new_dir
-            });
+        let executable_dir = env::var_os("XDG_BIN_HOME")
+            .and_then(dirs_sys_next::is_absolute_path)
+            .unwrap_or_else(|| home_dir.join(".local/bin"));
         let state_dir = env::var_os("XDG_STATE_HOME")
             .and_then(dirs_sys_next::is_absolute_path)
             .unwrap_or_else(|| home_dir.join(".local/state"));
