@@ -30,13 +30,9 @@ pub fn runtime_dir() -> Option<PathBuf> {
     env::var_os("XDG_RUNTIME_DIR").and_then(dirs_sys_next::is_absolute_path)
 }
 pub fn executable_dir() -> Option<PathBuf> {
-    env::var_os("XDG_BIN_HOME").and_then(dirs_sys_next::is_absolute_path).or_else(|| {
-        data_dir().map(|mut e| {
-            e.pop();
-            e.push("bin");
-            e
-        })
-    })
+    env::var_os("XDG_BIN_HOME")
+        .and_then(dirs_sys_next::is_absolute_path)
+        .or_else(|| home_dir().map(|h| h.join(".local/bin")))
 }
 pub fn state_dir() -> Option<PathBuf> {
     env::var_os("XDG_STATE_HOME")
