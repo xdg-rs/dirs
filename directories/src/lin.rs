@@ -79,6 +79,7 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
             .and_then(dirs_sys_next::is_absolute_path)
             .unwrap_or_else(|| home_dir.join(".config"))
             .join(&project_path);
+        let config_local_dir = config_dir.clone();
         let preference_dir = config_dir.clone();
         let data_dir = env::var_os("XDG_DATA_HOME")
             .and_then(dirs_sys_next::is_absolute_path)
@@ -96,6 +97,7 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
             project_path,
             cache_dir,
             config_dir,
+            config_local_dir,
             preference_dir,
             data_dir,
             data_local_dir,
