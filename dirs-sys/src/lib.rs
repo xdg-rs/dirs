@@ -18,11 +18,8 @@ pub fn is_absolute_path(path: OsString) -> Option<PathBuf> {
 mod target_unix_not_redox {
 
     use std::env;
-    use std::ffi::{CStr, OsString};
-    use std::mem;
-    use std::os::unix::ffi::OsStringExt;
+    use std::ffi::OsString;
     use std::path::PathBuf;
-    use std::ptr;
 
     // https://github.com/rust-lang/rust/blob/ef3e3863939217678e5f7e755c4234d224107c64/library/std/src/sys/unix/os.rs#L587
     pub fn home_dir() -> Option<PathBuf> {
@@ -31,12 +28,22 @@ mod target_unix_not_redox {
             .or_else(|| unsafe { fallback() })
             .map(PathBuf::from);
 
-        #[cfg(any(target_os = "android", target_os = "ios", target_os = "emscripten"))]
+        #[cfg(any(target_os = "android", target_os = "ios", target_os = "emscripten", not(feature = "getpwuid")))]
         unsafe fn fallback() -> Option<OsString> {
             None
         }
-        #[cfg(not(any(target_os = "android", target_os = "ios", target_os = "emscripten")))]
+        #[cfg(not(any(
+            target_os = "android",
+            target_os = "ios",
+            target_os = "emscripten",
+            not(feature = "getpwuid")
+        )))]
         unsafe fn fallback() -> Option<OsString> {
+            use std::ffi::CStr;
+            use std::mem;
+            use std::os::unix::ffi::OsStringExt;
+            use std::ptr;
+
             let amt = match libc::sysconf(libc::_SC_GETPW_R_SIZE_MAX) {
                 n if n < 0 => 512 as usize,
                 n => n as usize,

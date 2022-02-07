@@ -19,10 +19,21 @@ include = [
 maintenance = { status = "as-is" }
 
 [target.'cfg(unix)'.dependencies]
-libc = "0.2"
+libc = { version = "0.2", optional = true }
 
 [target.'cfg(target_os = "redox")'.dependencies]
 redox_users = { version = "0.4.0", default-features = false }
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3", features = ["knownfolders", "objbase", "shlobj", "winbase", "winerror"] }
+
+[features]
+default = ["getpwuid"]
+
+# Default features, except follow the behavior of libxdg-basedir, which does
+# not fall back to `getpwuid_r`.
+default_xdg = []
+
+# Enable this to have dirs-sys call `getpwuid_r` as a fallback in case `HOME`
+# is unset or empty.
+getpwuid = ["libc"]

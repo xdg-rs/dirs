@@ -31,3 +31,15 @@ maintenance = { status = "passively-maintained" }
 [dependencies.dirs-sys-next]
 version = "0.1"
 path = "../dirs-sys"
+default-features = false
+
+[features]
+default = ["dirs-sys-next/default"]
+
+# Default features, except follow the behavior of libxdg-basedir, which does
+# not fall back to `getpwuid_r`.
+default_xdg = ["dirs-sys-next/default_xdg"]
+
+# Enable this to have dirs-sys call `getpwuid_r` as a fallback in case `HOME`
+# is unset or empty.
+getpwuid = ["dirs-sys-next/getpwuid"]
