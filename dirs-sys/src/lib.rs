@@ -138,62 +138,63 @@ mod target_windows {
     use winapi::shared::winerror;
     use winapi::um::{combaseapi, knownfolders, shlobj, shtypes, winbase, winnt};
 
-    pub fn known_folder(folder_id: shtypes::REFKNOWNFOLDERID) -> Option<PathBuf> {
-        unsafe {
-            let mut path_ptr: winnt::PWSTR = ptr::null_mut();
-            let result = shlobj::SHGetKnownFolderPath(folder_id, 0, ptr::null_mut(), &mut path_ptr);
-            if result == winerror::S_OK {
-                let len = winbase::lstrlenW(path_ptr) as usize;
-                let path = slice::from_raw_parts(path_ptr, len);
-                let ostr: OsString = OsStringExt::from_wide(path);
-                combaseapi::CoTaskMemFree(path_ptr as *mut winapi::ctypes::c_void);
-                Some(PathBuf::from(ostr))
-            } else {
-                None
-            }
+    /// # Safety
+    ///
+    /// `folder_id` must be one of the `FOLDERID_*` values in `knownfolders`.
+    pub unsafe fn known_folder(folder_id: shtypes::REFKNOWNFOLDERID) -> Option<PathBuf> {
+        let mut path_ptr: winnt::PWSTR = ptr::null_mut();
+        let result = shlobj::SHGetKnownFolderPath(folder_id, 0, ptr::null_mut(), &mut path_ptr);
+        if result == winerror::S_OK {
+            let len = winbase::lstrlenW(path_ptr) as usize;
+            let path = slice::from_raw_parts(path_ptr, len);
+            let ostr: OsString = OsStringExt::from_wide(path);
+            combaseapi::CoTaskMemFree(path_ptr as *mut winapi::ctypes::c_void);
+            Some(PathBuf::from(ostr))
+        } else {
+            None
         }
     }
 
     pub fn known_folder_profile() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Profile)
+        unsafe { known_folder(&knownfolders::FOLDERID_Profile) }
     }
 
     pub fn known_folder_roaming_app_data() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_RoamingAppData)
+        unsafe { known_folder(&knownfolders::FOLDERID_RoamingAppData) }
     }
 
     pub fn known_folder_local_app_data() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_LocalAppData)
+        unsafe { known_folder(&knownfolders::FOLDERID_LocalAppData) }
     }
 
     pub fn known_folder_music() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Music)
+        unsafe { known_folder(&knownfolders::FOLDERID_Music) }
     }
 
     pub fn known_folder_desktop() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Desktop)
+        unsafe { known_folder(&knownfolders::FOLDERID_Desktop) }
     }
 
     pub fn known_folder_documents() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Documents)
+        unsafe { known_folder(&knownfolders::FOLDERID_Documents) }
     }
 
     pub fn known_folder_downloads() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Downloads)
+        unsafe { known_folder(&knownfolders::FOLDERID_Downloads) }
     }
 
     pub fn known_folder_pictures() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Pictures)
+        unsafe { known_folder(&knownfolders::FOLDERID_Pictures) }
     }
 
     pub fn known_folder_public() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Public)
+        unsafe { known_folder(&knownfolders::FOLDERID_Public) }
     }
     pub fn known_folder_templates() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Templates)
+        unsafe { known_folder(&knownfolders::FOLDERID_Templates) }
     }
     pub fn known_folder_videos() -> Option<PathBuf> {
-        known_folder(&knownfolders::FOLDERID_Videos)
+        unsafe { known_folder(&knownfolders::FOLDERID_Videos) }
     }
 }
 
