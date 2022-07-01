@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          rustup toolchain install 1.34.0
+          rustup toolchain install 1.48.0
           rustup default 1.34.0
           rustup target add \
             x86_64-pc-windows-gnu \
