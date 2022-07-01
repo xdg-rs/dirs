@@ -135,62 +135,60 @@ mod target_windows {
     use windows_sys::Win32::System::Com::CoTaskMemFree;
     use windows_sys::Win32::UI::Shell;
 
-    pub fn known_folder(folder_id: *const GUID) -> Option<PathBuf> {
-        unsafe {
-            let mut path_ptr: PWSTR = ptr::null_mut();
-            let result = Shell::SHGetKnownFolderPath(folder_id, 0, 0, &mut path_ptr);
-            if result == S_OK {
-                let len = lstrlenW(path_ptr) as usize;
-                let path = slice::from_raw_parts(path_ptr, len);
-                let ostr: OsString = OsStringExt::from_wide(path);
-                CoTaskMemFree(path_ptr as *mut std::os::raw::c_void);
-                Some(PathBuf::from(ostr))
-            } else {
-                None
-            }
+    pub unsafe fn known_folder(folder_id: *const GUID) -> Option<PathBuf> {
+        let mut path_ptr: PWSTR = ptr::null_mut();
+        let result = Shell::SHGetKnownFolderPath(folder_id, 0, 0, &mut path_ptr);
+        if result == S_OK {
+            let len = lstrlenW(path_ptr) as usize;
+            let path = slice::from_raw_parts(path_ptr, len);
+            let ostr: OsString = OsStringExt::from_wide(path);
+            CoTaskMemFree(path_ptr as *mut std::os::raw::c_void);
+            Some(PathBuf::from(ostr))
+        } else {
+            None
         }
     }
 
     pub fn known_folder_profile() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Profile)
+        unsafe { known_folder(&Shell::FOLDERID_Profile) }
     }
 
     pub fn known_folder_roaming_app_data() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_RoamingAppData)
+        unsafe { known_folder(&Shell::FOLDERID_RoamingAppData) }
     }
 
     pub fn known_folder_local_app_data() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_LocalAppData)
+        unsafe { known_folder(&Shell::FOLDERID_LocalAppData) }
     }
 
     pub fn known_folder_music() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Music)
+        unsafe { known_folder(&Shell::FOLDERID_Music) }
     }
 
     pub fn known_folder_desktop() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Desktop)
+        unsafe { known_folder(&Shell::FOLDERID_Desktop) }
     }
 
     pub fn known_folder_documents() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Documents)
+        unsafe { known_folder(&Shell::FOLDERID_Documents) }
     }
 
     pub fn known_folder_downloads() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Downloads)
+        unsafe { known_folder(&Shell::FOLDERID_Downloads) }
     }
 
     pub fn known_folder_pictures() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Pictures)
+        unsafe { known_folder(&Shell::FOLDERID_Pictures) }
     }
 
     pub fn known_folder_public() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Public)
+        unsafe { known_folder(&Shell::FOLDERID_Public) }
     }
     pub fn known_folder_templates() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Templates)
+        unsafe { known_folder(&Shell::FOLDERID_Templates) }
     }
     pub fn known_folder_videos() -> Option<PathBuf> {
-        known_folder(&Shell::FOLDERID_Videos)
+        unsafe { known_folder(&Shell::FOLDERID_Videos) }
     }
 }
 
