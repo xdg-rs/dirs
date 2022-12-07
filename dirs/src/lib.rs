@@ -20,10 +20,13 @@ mod sys;
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 #[path = "mac.rs"]
 mod sys;
-#[cfg(target_arch = "wasm32")]
+#[cfg(target_os = "android")]
+#[path = "android.rs"]
+mod sys;
+#[cfg(target_family = "wasm")]
 #[path = "wasm.rs"]
 mod sys;
-#[cfg(not(any(target_arch = "wasm32", windows, target_os = "macos", target_os = "ios")))]
+#[cfg(not(any(target_family = "wasm", windows, target_os = "macos", target_os = "ios", target_os = "android")))]
 #[path = "lin.rs"]
 mod sys;
 

@@ -26,8 +26,11 @@ include = [
 [badges]
 maintenance = { status = "passively-maintained" }
 
-[dependencies]
-
-[dependencies.dirs-sys-next]
+[target.'cfg(not(target_os = "android"))'.dependencies.dirs-sys-next]
 version = "0.1"
 path = "../dirs-sys"
+
+[target.'cfg(target_os = "android")'.dependencies]
+anyhow = "1.0.66"
+jni = "0.20.0"
+ndk-context = "0.1.1"
