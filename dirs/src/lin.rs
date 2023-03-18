@@ -4,6 +4,7 @@ use std::path::PathBuf;
 pub fn home_dir() -> Option<PathBuf> {
     dirs_sys_next::home_dir()
 }
+
 pub fn cache_dir() -> Option<PathBuf> {
     env::var_os("XDG_CACHE_HOME")
         .and_then(dirs_sys_next::is_absolute_path)
@@ -13,6 +14,9 @@ pub fn config_dir() -> Option<PathBuf> {
     env::var_os("XDG_CONFIG_HOME")
         .and_then(dirs_sys_next::is_absolute_path)
         .or_else(|| home_dir().map(|h| h.join(".config")))
+}
+pub fn preference_dir() -> Option<PathBuf> {
+    config_dir()
 }
 pub fn data_dir() -> Option<PathBuf> {
     env::var_os("XDG_DATA_HOME")
@@ -26,14 +30,16 @@ pub fn runtime_dir() -> Option<PathBuf> {
     env::var_os("XDG_RUNTIME_DIR").and_then(dirs_sys_next::is_absolute_path)
 }
 pub fn executable_dir() -> Option<PathBuf> {
-    env::var_os("XDG_BIN_HOME").and_then(dirs_sys_next::is_absolute_path).or_else(|| {
-        data_dir().map(|mut e| {
-            e.pop();
-            e.push("bin");
-            e
-        })
-    })
+    env::var_os("XDG_BIN_HOME")
+        .and_then(dirs_sys_next::is_absolute_path)
+        .or_else(|| home_dir().map(|h| h.join(".local/bin")))
 }
+pub fn state_dir() -> Option<PathBuf> {
+    env::var_os("XDG_STATE_HOME")
+        .and_then(dirs_sys_next::is_absolute_path)
+        .or_else(|| home_dir().map(|h| h.join(".local/state")))
+}
+
 pub fn audio_dir() -> Option<PathBuf> {
     dirs_sys_next::user_dir("MUSIC")
 }

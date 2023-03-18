@@ -3,11 +3,15 @@ use std::path::PathBuf;
 pub fn home_dir() -> Option<PathBuf> {
     dirs_sys_next::home_dir()
 }
+
 pub fn cache_dir() -> Option<PathBuf> {
     home_dir().map(|h| h.join("Library/Caches"))
 }
 pub fn config_dir() -> Option<PathBuf> {
     data_dir()
+}
+pub fn preference_dir() -> Option<PathBuf> {
+    home_dir().map(|h| h.join("Library/Preferences"))
 }
 pub fn data_dir() -> Option<PathBuf> {
     home_dir().map(|h| h.join("Library/Application Support"))
@@ -21,6 +25,10 @@ pub fn executable_dir() -> Option<PathBuf> {
 pub fn runtime_dir() -> Option<PathBuf> {
     None
 }
+pub fn state_dir() -> Option<PathBuf> {
+    None
+}
+
 pub fn audio_dir() -> Option<PathBuf> {
     home_dir().map(|h| h.join("Music"))
 }
