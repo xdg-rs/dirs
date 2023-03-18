@@ -13,27 +13,29 @@ pub fn base_dirs() -> Option<BaseDirs> {
         let config_dir = env::var_os("XDG_CONFIG_HOME")
             .and_then(dirs_sys_next::is_absolute_path)
             .unwrap_or_else(|| home_dir.join(".config"));
+        let preference_dir = config_dir.clone();
         let data_dir = env::var_os("XDG_DATA_HOME")
             .and_then(dirs_sys_next::is_absolute_path)
             .unwrap_or_else(|| home_dir.join(".local/share"));
         let data_local_dir = data_dir.clone();
         let runtime_dir = env::var_os("XDG_RUNTIME_DIR").and_then(dirs_sys_next::is_absolute_path);
-        let executable_dir =
-            env::var_os("XDG_BIN_HOME").and_then(dirs_sys_next::is_absolute_path).unwrap_or_else(|| {
-                let mut new_dir = data_dir.clone();
-                new_dir.pop();
-                new_dir.push("bin");
-                new_dir
-            });
+        let executable_dir = env::var_os("XDG_BIN_HOME")
+            .and_then(dirs_sys_next::is_absolute_path)
+            .unwrap_or_else(|| home_dir.join(".local/bin"));
+        let state_dir = env::var_os("XDG_STATE_HOME")
+            .and_then(dirs_sys_next::is_absolute_path)
+            .unwrap_or_else(|| home_dir.join(".local/state"));
 
         let base_dirs = BaseDirs {
             home_dir,
             cache_dir,
             config_dir,
+            preference_dir,
             data_dir,
             data_local_dir,
             executable_dir: Some(executable_dir),
             runtime_dir,
+            state_dir: Some(state_dir),
         };
         Some(base_dirs)
     } else {
@@ -77,6 +79,8 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
             .and_then(dirs_sys_next::is_absolute_path)
             .unwrap_or_else(|| home_dir.join(".config"))
             .join(&project_path);
+        let config_local_dir = config_dir.clone();
+        let preference_dir = config_dir.clone();
         let data_dir = env::var_os("XDG_DATA_HOME")
             .and_then(dirs_sys_next::is_absolute_path)
             .unwrap_or_else(|| home_dir.join(".local/share"))
@@ -84,8 +88,22 @@ pub fn project_dirs_from_path(project_path: PathBuf) -> Option<ProjectDirs> {
         let data_local_dir = data_dir.clone();
         let runtime_dir =
             env::var_os("XDG_RUNTIME_DIR").and_then(dirs_sys_next::is_absolute_path).map(|o| o.join(&project_path));
+        let state_dir = env::var_os("XDG_STATE_HOME")
+            .and_then(dirs_sys_next::is_absolute_path)
+            .unwrap_or_else(|| home_dir.join(".local/state"))
+            .join(&project_path);
 
-        let project_dirs = ProjectDirs { project_path, cache_dir, config_dir, data_dir, data_local_dir, runtime_dir };
+        let project_dirs = ProjectDirs {
+            project_path,
+            cache_dir,
+            config_dir,
+            config_local_dir,
+            preference_dir,
+            data_dir,
+            data_local_dir,
+            runtime_dir,
+            state_dir: Some(state_dir),
+        };
         Some(project_dirs)
     } else {
         None
